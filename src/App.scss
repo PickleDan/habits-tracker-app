@@ -1,12 +1,13 @@
 $green-mark-color: #37a857;
 $red-mark-color: #d85147;
 $neutral-mark-color: #b4ada3;
+$background-table-color: #fff9fb;
 
 //table styles
 .table-wrapper {
   margin-top: 120px;
   .table {
-    background: #fff9fb;
+    background: $background-table-color;
   }
   td {
     text-align: center;
