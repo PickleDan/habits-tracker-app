@@ -15,8 +15,8 @@ const READING_HABIT = createHabit({
     { status: Status.FAILED },
     { status: Status.DONE },
     { status: Status.FAILED },
-    { status: Status.DONE },
-    { status: Status.DONE }
+    { status: "" },
+    { status: "" }
   ]
 });
 
@@ -27,10 +27,10 @@ const GYM_HABIT = createHabit({
     { status: Status.DONE },
     { status: Status.FAILED },
     { status: Status.FAILED },
-    { status: Status.NOT_SPECIFIED },
-    { status: Status.NOT_SPECIFIED },
     { status: Status.DONE },
-    { status: Status.DONE }
+    { status: Status.NOT_SPECIFIED },
+    { status: "" },
+    { status: "" }
   ]
 });
 
@@ -43,24 +43,24 @@ const EARLY_RISE_HABIT = createHabit({
     { status: Status.FAILED },
     { status: Status.FAILED },
     { status: Status.FAILED },
-    { status: Status.DONE },
-    { status: Status.DONE }
+    { status: "" },
+    { status: "" }
   ]
 });
 
-const PUSHUPS_HABIT = createHabit({
-  name: "Отжимания",
-  measuringValue: "40раз",
-  stats: [
-    { status: Status.DONE },
-    { status: Status.FAILED },
-    { status: Status.FAILED },
-    { status: Status.DONE },
-    { status: Status.DONE },
-    { status: Status.DONE },
-    { status: Status.DONE }
-  ]
-});
+// const PUSHUPS_HABIT = createHabit({
+//   name: "Отжимания",
+//   measuringValue: "40раз",
+//   stats: [
+//     { status: Status.DONE },
+//     { status: Status.FAILED },
+//     { status: Status.FAILED },
+//     { status: Status.DONE },
+//     { status: Status.DONE },
+//     { status: "" },
+//     { status: "" }
+//   ]
+// });
 
-const HABITS = [READING_HABIT, GYM_HABIT, EARLY_RISE_HABIT, PUSHUPS_HABIT];
+const HABITS = [READING_HABIT, GYM_HABIT, EARLY_RISE_HABIT];
 export { HABITS };
