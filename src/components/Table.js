@@ -4,8 +4,6 @@ import "moment/locale/ru";
 
 import HabitStatus from "./HabitStatus";
 
-import { DateUtils } from "../utils/date";
-
 moment.locale("ru");
 
 const Status = {
@@ -28,8 +26,8 @@ export default class Table extends React.Component {
           { status: Status.FAILED },
           { status: Status.DONE },
           { status: Status.FAILED },
-          { status: "" },
-          { status: "" }
+          { status: Status.NOT_SPECIFIED },
+          { status: Status.NOT_SPECIFIED }
         ]
       },
       GYM_HABIT: {
@@ -61,11 +59,6 @@ export default class Table extends React.Component {
     };
   }
 
-  handleClickCell = e => {
-    const test = e.target;
-    console.log(test);
-  };
-
   render() {
     const HABITS = [
       this.state.READING_HABIT,
@@ -77,6 +70,8 @@ export default class Table extends React.Component {
     const listOfMeasureValue = HABITS.map(habit => (
       <td>{habit.measuringValue}</td>
     ));
+
+    const weekDays = this.props.weekDays;
 
     return (
       <div className="table-wrapper container">
@@ -91,15 +86,12 @@ export default class Table extends React.Component {
             {listOfMeasureValue}
             <td>1...10</td>
           </tr>
-          {DateUtils.getWeekDays(new Date()).map((day, dayOrderNumber) => (
+          {weekDays.map((day, dayOrderNumber) => (
             <tr className="status-cell">
-              <th scope="row">
-                {moment(day, "DD.MM.YYYY").format("DD.MM.YY dd")}
-              </th>
+              <th scope="row">{day}</th>
               {HABITS.map(habit => (
                 <td>
                   <HabitStatus
-                    onClick={this.handleHabitStatusChange}
                     habitStatus={habit.stats[dayOrderNumber].status}
                   />
                 </td>

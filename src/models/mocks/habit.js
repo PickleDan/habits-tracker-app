@@ -3,6 +3,7 @@ import { createHabit } from "../habit";
 const Status = {
   DONE: "DONE",
   FAILED: "FAILED",
+  NEUTRAL: "NEUTRAL",
   NOT_SPECIFIED: "NOT_SPECIFIED"
 };
 
@@ -15,8 +16,8 @@ const READING_HABIT = createHabit({
     { status: Status.FAILED },
     { status: Status.DONE },
     { status: Status.FAILED },
-    { status: "" },
-    { status: "" }
+    { status: Status.NEUTRAL },
+    { status: Status.NEUTRAL }
   ]
 });
 
@@ -29,8 +30,8 @@ const GYM_HABIT = createHabit({
     { status: Status.FAILED },
     { status: Status.DONE },
     { status: Status.NOT_SPECIFIED },
-    { status: "" },
-    { status: "" }
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED }
   ]
 });
 
@@ -43,24 +44,9 @@ const EARLY_RISE_HABIT = createHabit({
     { status: Status.FAILED },
     { status: Status.FAILED },
     { status: Status.FAILED },
-    { status: "" },
-    { status: "" }
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED }
   ]
 });
-
-// const PUSHUPS_HABIT = createHabit({
-//   name: "Отжимания",
-//   measuringValue: "40раз",
-//   stats: [
-//     { status: Status.DONE },
-//     { status: Status.FAILED },
-//     { status: Status.FAILED },
-//     { status: Status.DONE },
-//     { status: Status.DONE },
-//     { status: "" },
-//     { status: "" }
-//   ]
-// });
-
 const HABITS = [READING_HABIT, GYM_HABIT, EARLY_RISE_HABIT];
 export { HABITS };

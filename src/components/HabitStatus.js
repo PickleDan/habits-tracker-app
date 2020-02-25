@@ -24,7 +24,7 @@ const HabitStatus = ({ habitStatus, onClick }) => {
   const StatusComponent = getHabitStatusComponent(habitStatus);
 
   return (
-    <div className="habit-status-container" onClick={onClick}>
+    <div className="habit-status-container">
       <StatusComponent />
     </div>
   );
