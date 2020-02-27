@@ -71,7 +71,7 @@ export default class Table extends React.Component {
       <td>{habit.measuringValue}</td>
     ));
 
-    const weekDays = this.props.weekDays;
+    const { weekDays } = this.props;
 
     return (
       <div className="table-wrapper container">
@@ -88,7 +88,7 @@ export default class Table extends React.Component {
           </tr>
           {weekDays.map((day, dayOrderNumber) => (
             <tr className="status-cell">
-              <th scope="row">{day}</th>
+              <th scope="row">{day.format("DD.MM.YY dd")}</th>
               {HABITS.map(habit => (
                 <td>
                   <HabitStatus
