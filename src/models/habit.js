@@ -1,4 +1,5 @@
-const createHabit = ({ name, measuringValue, stats = [] }) => ({
+const createHabit = ({ id, name, measuringValue, stats = [] }) => ({
+  id,
   name,
   measuringValue,
   stats
