@@ -3,7 +3,6 @@ $red-mark-color: #d85147;
 $neutral-mark-color: #b4ada3;
 $background-table-color: #fff9fb;
 
-//table styles
 .table-wrapper {
   margin-top: 120px;
   margin-left: auto;
@@ -22,9 +21,9 @@ $background-table-color: #fff9fb;
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      cursor: pointer;
       position: absolute;
       left: 50%;
+      cursor: pointer;
       transform: translate(-50%, -50%);
     }
     .green-mark {

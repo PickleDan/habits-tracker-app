@@ -2,9 +2,12 @@ import React from "react";
 import "./App.scss";
 import Table from "./components/Table";
 import { HABITS } from "./models/mocks/habit";
+import { DateUtils } from "./utils/date";
+import moment from "moment";
 
 function App() {
-  return <Table HABITS={HABITS} />;
+  const weekDays = DateUtils.getWeekDays(moment());
+  return <Table habits={HABITS} weekDays={weekDays} />;
 }
 
 export default App;
