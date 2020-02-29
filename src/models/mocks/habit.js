@@ -13,12 +13,12 @@ const READING_HABIT = createHabit({
   measuringValue: "Каждый день",
   stats: [
     { status: Status.DONE },
-    { status: Status.FAILED },
-    { status: Status.FAILED },
     { status: Status.DONE },
-    { status: Status.FAILED },
-    { status: Status.NEUTRAL },
-    { status: Status.NEUTRAL }
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED }
   ]
 });
 
@@ -27,10 +27,10 @@ const GYM_HABIT = createHabit({
   name: "Спортзал",
   measuringValue: "3р/нед",
   stats: [
+    { status: Status.NEUTRAL },
     { status: Status.DONE },
-    { status: Status.FAILED },
-    { status: Status.FAILED },
-    { status: Status.DONE },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
     { status: Status.NOT_SPECIFIED },
     { status: Status.NOT_SPECIFIED },
     { status: Status.NOT_SPECIFIED }
@@ -42,13 +42,13 @@ const EARLY_RISE_HABIT = createHabit({
   name: "Ранний подъем",
   measuringValue: "6:30",
   stats: [
-    { dayName: "MONDAY", status: Status.DONE },
-    { dayName: "TUESDAY", status: Status.FAILED },
-    { dayName: "WEDNESDAY", status: Status.FAILED },
-    { dayName: "THURSDAY", status: Status.FAILED },
-    { dayName: "FRIDAY", status: Status.FAILED },
-    { dayName: "SATURDAY", status: Status.NOT_SPECIFIED },
-    { dayName: "SUNDAY", status: Status.NOT_SPECIFIED }
+    { status: Status.FAILED }, //dayName: "MONDAY",
+    { status: Status.DONE },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED },
+    { status: Status.NOT_SPECIFIED }
   ]
 });
 
