@@ -15,6 +15,15 @@ const replaceById = (collection, replacement) =>
     return replacable;
   });
 
+const dayNumberToDayName = {
+  0: "MONDAY",
+  1: "TUESDAY",
+  2: "WEDNESDAY",
+  3: "THURSDAY",
+  4: "FRIDAY",
+  5: "SATURDAY",
+  6: "SUNDAY"
+};
 export default class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -85,11 +94,20 @@ export default class Table extends React.Component {
                       onClickCell={greenAndNeutralMarksHandler}
                       onDoubleClickCell={redMarkHandler}
                       dayOrderNumber={dayOrderNumber}
+                      dayName={dayNumberToDayName[dayOrderNumber]}
                       habit={habit}
                     />
                   </td>
                 ))}
-                <td>8</td>
+                <td>
+                  <input
+                    className="day-patential-input"
+                    value={
+                      habits[0].stats[dayNumberToDayName[dayOrderNumber]]
+                        .dayPotential
+                    }
+                  ></input>
+                </td>
               </tr>
             ))}
           </tbody>

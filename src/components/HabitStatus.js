@@ -25,9 +25,11 @@ const HabitStatus = ({
   dayOrderNumber,
   onClickCell,
   onDoubleClickCell,
-  onClickCombination
+  dayName
 }) => {
-  const { status: habitStatus } = habit.stats[dayOrderNumber];
+  const { status: habitStatus } = habit.stats[dayName];
+  const { dayPotential } = habit.stats[dayName];
+  console.log(dayPotential);
   const StatusComponent = getHabitStatusComponent(habitStatus);
 
   return (
