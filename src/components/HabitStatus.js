@@ -20,13 +20,7 @@ const habitStatusComponents = {
 const getHabitStatusComponent = status =>
   habitStatusComponents[status] || habitStatusComponents[Status.NOT_SPECIFIED];
 
-const HabitStatus = ({
-  habit,
-  dayOrderNumber,
-  onClickCell,
-  onDoubleClickCell,
-  dayName
-}) => {
+const HabitStatus = ({ habit, onClickCell, onDoubleClickCell, dayName }) => {
   const { status: habitStatus } = habit.stats[dayName];
   const { dayPotential } = habit.stats[dayName];
 

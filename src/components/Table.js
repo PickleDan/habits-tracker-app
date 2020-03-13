@@ -33,13 +33,6 @@ export default class Table extends React.Component {
 
   render() {
     const { habits } = this.state;
-    const listOfHabitsNames = habits.map(habit => (
-      <td key={habit.id}>{habit.name}</td>
-    ));
-
-    const listOfMeasureValue = habits.map(habit => (
-      <td key={habit.id}>{habit.measuringValue}</td>
-    ));
 
     const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
       const updatedHabit = cloneObject(habit);
@@ -72,7 +65,6 @@ export default class Table extends React.Component {
     const doubleClickCellHandler = (habit, dayName, dayPotential) => {
       const updatedHabit = cloneObject(habit);
       updatedHabit.stats[dayName] = { status: Status.FAILED, dayPotential };
-
       const { habits } = this.state;
       const updatedHabits = replaceById(habits, updatedHabit);
 
@@ -90,14 +82,37 @@ export default class Table extends React.Component {
         alert("Вы ввели недопустимое значение, введите число от 1 до 10");
       } else {
         const updatedHabit = cloneObject(habitWithDayPotentialData);
-
         updatedHabit.stats[dayName].dayPotential = inputValue;
 
+        const { habits } = this.state;
         const updatedHabits = replaceById(habits, updatedHabit);
 
         this.setState({ habits: updatedHabits });
       }
     };
+
+    const inputHabitNameHandler = (e, habit) => {
+      const updatedHabit = cloneObject(habit);
+      updatedHabit.name = e.target.value;
+
+      const { habits } = this.state;
+      const updatedHabits = replaceById(habits, updatedHabit);
+
+      this.setState({ habits: updatedHabits });
+    };
+
+    const listOfHabitsNames = habits.map(habit => (
+      <td key={habit.id}>
+        <input
+          value={habit.name}
+          onChange={e => inputHabitNameHandler(e, habit)}
+        ></input>
+      </td>
+    ));
+
+    const listOfMeasureValue = habits.map(habit => (
+      <td key={habit.id}>{habit.measuringValue}</td>
+    ));
 
     const { weekDays } = this.props;
 
