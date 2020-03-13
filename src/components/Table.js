@@ -41,13 +41,14 @@ export default class Table extends React.Component {
       <td key={habit.id}>{habit.measuringValue}</td>
     ));
 
-    const greenAndNeutralMarksHandler = (habit, dayOrderNumber, e) => {
+    const greenAndNeutralMarksHandler = (habit, dayName, dayPotential, e) => {
       const updatedHabit = cloneObject(habit);
       if (e.ctrlKey) {
-        updatedHabit.stats[dayOrderNumber] = { status: Status.NEUTRAL };
+        updatedHabit.stats[dayName] = { status: Status.NEUTRAL, dayPotential };
       } else {
-        updatedHabit.stats[dayOrderNumber] = {
-          status: Status.DONE
+        updatedHabit.stats[dayName] = {
+          status: Status.DONE,
+          dayPotential
         };
       }
 
@@ -57,14 +58,34 @@ export default class Table extends React.Component {
       this.setState({ habits: updatedHabits });
     };
 
-    const redMarkHandler = (habit, dayOrderNumber) => {
+    const redMarkHandler = (habit, dayName, dayPotential) => {
       const updatedHabit = cloneObject(habit);
-      updatedHabit.stats[dayOrderNumber] = { status: Status.FAILED };
+      updatedHabit.stats[dayName] = { status: Status.FAILED, dayPotential };
 
       const { habits } = this.state;
       const updatedHabits = replaceById(habits, updatedHabit);
 
       this.setState({ habits: updatedHabits });
+    };
+
+    const inputDayPotentialHandler = (
+      e,
+      habitWithDayPotentialData,
+      dayName
+    ) => {
+      const inputValue = e.target.value;
+
+      if (parseInt(inputValue) > 10 || parseInt(inputValue) <= 0) {
+        alert("Вы ввели недопустимое значение, введите число от 1 до 10");
+      } else {
+        const updatedHabit = cloneObject(habitWithDayPotentialData);
+
+        updatedHabit.stats[dayName].dayPotential = inputValue;
+
+        const updatedHabits = replaceById(habits, updatedHabit);
+
+        this.setState({ habits: updatedHabits });
+      }
     };
 
     const { weekDays } = this.props;
@@ -101,10 +122,18 @@ export default class Table extends React.Component {
                 ))}
                 <td>
                   <input
+                    type="number"
                     className="day-patential-input"
                     value={
                       habits[0].stats[dayNumberToDayName[dayOrderNumber]]
                         .dayPotential
+                    }
+                    onChange={e =>
+                      inputDayPotentialHandler(
+                        e,
+                        habits[0],
+                        dayNumberToDayName[dayOrderNumber]
+                      )
                     }
                   ></input>
                 </td>

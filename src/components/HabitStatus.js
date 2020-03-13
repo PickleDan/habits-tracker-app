@@ -29,13 +29,13 @@ const HabitStatus = ({
 }) => {
   const { status: habitStatus } = habit.stats[dayName];
   const { dayPotential } = habit.stats[dayName];
-  console.log(dayPotential);
+
   const StatusComponent = getHabitStatusComponent(habitStatus);
 
   return (
     <div
-      onClick={e => onClickCell(habit, dayOrderNumber, e)}
-      onDoubleClick={() => onDoubleClickCell(habit, dayOrderNumber)}
+      onClick={e => onClickCell(habit, dayName, dayPotential, e)}
+      onDoubleClick={() => onDoubleClickCell(habit, dayName, dayPotential)}
       className="habit-status-container"
     >
       <StatusComponent />
