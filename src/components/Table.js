@@ -101,7 +101,7 @@ export default class Table extends React.Component {
       this.setState({ habits: updatedHabits });
     };
 
-    const inputHabitNameOnEnterPress = e => {
+    const habitInputOnEnterPress = e => {
       const inputValue = e.target.value;
       if (inputValue.length > 25) {
         alert(
@@ -122,19 +122,38 @@ export default class Table extends React.Component {
         e.target.blur();
       }
     };
+
+    const inputMeasuringValueHandler = (e, habit) => {
+      const updatedHabit = cloneObject(habit);
+      updatedHabit.measuringValue = e.target.value;
+
+      const { habits } = this.state;
+      const updatedHabits = replaceById(habits, updatedHabit);
+
+      this.setState({ habits: updatedHabits });
+    };
+
     const listOfHabitsNames = habits.map(habit => (
       <td key={habit.id}>
         <input
           className="habit-name-input"
           value={habit.name}
           onChange={e => inputHabitNameHandler(e, habit)}
-          onKeyPress={e => inputHabitNameOnEnterPress(e)}
+          onKeyPress={e => habitInputOnEnterPress(e)}
         ></input>
       </td>
     ));
 
     const listOfMeasureValue = habits.map(habit => (
-      <td key={habit.id}>{habit.measuringValue}</td>
+      <td key={habit.id}>
+        <input
+          className="measuring-value-input"
+          value={habit.measuringValue}
+          onChange={e => inputMeasuringValueHandler(e, habit)}
+          onKeyPress={e => habitInputOnEnterPress(e)}
+          spellCheck="false"
+        ></input>
+      </td>
     ));
 
     const { weekDays } = this.props;
