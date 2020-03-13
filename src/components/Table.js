@@ -101,11 +101,34 @@ export default class Table extends React.Component {
       this.setState({ habits: updatedHabits });
     };
 
+    const inputHabitNameOnEnterPress = e => {
+      const inputValue = e.target.value;
+      if (inputValue.length > 25) {
+        alert(
+          "Вы ввели недопустимое количество символов, количество символов должно быть меньше 25"
+        );
+      }
+      if (e.key === "Enter") {
+        if (inputValue.length === 0) {
+          alert("Вы ничего не ввели");
+        } else {
+          e.target.blur();
+        }
+      }
+    };
+
+    const blurInputOnEnterPress = e => {
+      if (e.key === "Enter") {
+        e.target.blur();
+      }
+    };
     const listOfHabitsNames = habits.map(habit => (
       <td key={habit.id}>
         <input
+          className="habit-name-input"
           value={habit.name}
           onChange={e => inputHabitNameHandler(e, habit)}
+          onKeyPress={e => inputHabitNameOnEnterPress(e)}
         ></input>
       </td>
     ));
@@ -161,6 +184,7 @@ export default class Table extends React.Component {
                         dayNumberToDayName[dayOrderNumber]
                       )
                     }
+                    onKeyPress={e => blurInputOnEnterPress(e)}
                   ></input>
                 </td>
               </tr>
