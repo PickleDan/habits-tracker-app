@@ -35,6 +35,7 @@ const HabitStatus = ({
   return (
     <div
       onClick={e => onClickCell(habit, dayName, dayPotential, e)}
+      onContextMenu={e => onClickCell(habit, dayName, dayPotential, e)}
       onDoubleClick={() => onDoubleClickCell(habit, dayName, dayPotential)}
       className="habit-status-container"
     >

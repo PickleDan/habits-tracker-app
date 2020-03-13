@@ -41,13 +41,24 @@ export default class Table extends React.Component {
       <td key={habit.id}>{habit.measuringValue}</td>
     ));
 
-    const greenAndNeutralMarksHandler = (habit, dayName, dayPotential, e) => {
+    const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
       const updatedHabit = cloneObject(habit);
-      if (e.ctrlKey) {
-        updatedHabit.stats[dayName] = { status: Status.NEUTRAL, dayPotential };
-      } else {
+      if (e.type === "click") {
+        if (e.ctrlKey) {
+          updatedHabit.stats[dayName] = {
+            status: Status.NEUTRAL,
+            dayPotential
+          };
+        } else {
+          updatedHabit.stats[dayName] = {
+            status: Status.DONE,
+            dayPotential
+          };
+        }
+      } else if (e.type === "contextmenu") {
+        e.preventDefault();
         updatedHabit.stats[dayName] = {
-          status: Status.DONE,
+          status: Status.NOT_SPECIFIED,
           dayPotential
         };
       }
@@ -58,7 +69,7 @@ export default class Table extends React.Component {
       this.setState({ habits: updatedHabits });
     };
 
-    const redMarkHandler = (habit, dayName, dayPotential) => {
+    const doubleClickCellHandler = (habit, dayName, dayPotential) => {
       const updatedHabit = cloneObject(habit);
       updatedHabit.stats[dayName] = { status: Status.FAILED, dayPotential };
 
@@ -112,8 +123,8 @@ export default class Table extends React.Component {
                 {habits.map(habit => (
                   <td key={habit.id}>
                     <HabitStatus
-                      onClickCell={greenAndNeutralMarksHandler}
-                      onDoubleClickCell={redMarkHandler}
+                      onClickCell={oneClickCellHandler}
+                      onDoubleClickCell={doubleClickCellHandler}
                       dayOrderNumber={dayOrderNumber}
                       dayName={dayNumberToDayName[dayOrderNumber]}
                       habit={habit}
