@@ -4,16 +4,11 @@ import "moment/locale/ru";
 import { HabitStatus } from "./HabitStatus";
 import { Status } from "./HabitStatus";
 import cloneObject from "../utils/cloneObject";
+import replaceById from "../utils/replaceById";
+import HabitName from "./HabitName";
+import HabitMeasure from "./HabitMeasure";
 
 moment.locale("ru");
-
-const replaceById = (collection, replacement) =>
-  collection.map(replacable => {
-    if (replacable.id === replacement.id) {
-      return replacement;
-    }
-    return replacable;
-  });
 
 const dayNumberToDayName = {
   0: "MONDAY",
@@ -24,6 +19,7 @@ const dayNumberToDayName = {
   5: "SATURDAY",
   6: "SUNDAY"
 };
+
 export default class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -134,26 +130,21 @@ export default class Table extends React.Component {
     };
 
     const listOfHabitsNames = habits.map(habit => (
-      <td key={habit.id}>
-        <input
-          className="habit-name-input"
-          value={habit.name}
-          onChange={e => inputHabitNameHandler(e, habit)}
-          onKeyPress={e => habitInputOnEnterPress(e)}
-        ></input>
-      </td>
+      <HabitName
+        key={habit.id}
+        habit={habit}
+        inputHabitNameHandler={inputHabitNameHandler}
+        habitInputOnEnterPress={habitInputOnEnterPress}
+      />
     ));
 
     const listOfMeasureValue = habits.map(habit => (
-      <td key={habit.id}>
-        <input
-          className="measuring-value-input"
-          value={habit.measuringValue}
-          onChange={e => inputMeasuringValueHandler(e, habit)}
-          onKeyPress={e => habitInputOnEnterPress(e)}
-          spellCheck="false"
-        ></input>
-      </td>
+      <HabitMeasure
+        key={habit.id}
+        habit={habit}
+        inputMeasuringValueHandler={inputMeasuringValueHandler}
+        habitInputOnEnterPress={habitInputOnEnterPress}
+      />
     ));
 
     const { weekDays } = this.props;

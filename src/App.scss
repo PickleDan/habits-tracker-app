@@ -1,7 +1,8 @@
 $green-mark-color: #37a857;
-$red-mark-color: #d85147;
+$red-mark-color: #f06449;
 $neutral-mark-color: #b4ada3;
 $background-table-color: #fbfbfb;
+$input-border-color: #e9d6ec;
 
 //Remove arrows from inputs of type number
 input[type="number"]::-webkit-inner-spin-button,
@@ -57,7 +58,7 @@ input[type="number"]::-webkit-outer-spin-button {
   %input-style {
     margin: 0;
     border: 0;
-    border-bottom: 1px solid #37a857;
+    border-bottom: 1px solid $input-border-color;
     text-align: center;
     background-color: $background-table-color;
     &:focus {

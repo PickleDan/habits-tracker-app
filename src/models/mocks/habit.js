@@ -9,7 +9,7 @@ const Status = {
 
 const READING_HABIT = createHabit({
   id: 1,
-  name: "Чтение",
+  name: "Отслеживание привычек",
   measuringValue: "Каждый день",
   stats: {
     MONDAY: { status: Status.DONE, dayPotential: 4 },
