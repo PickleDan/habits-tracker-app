@@ -1,0 +1,16 @@
+@import "../../scss/config";
+
+.habitNameForm {
+    display: flex;
+}
+.habitNameButtons {
+    padding-right: 10px;
+
+    cursor: pointer;
+}
+.habitNameIconDeny {
+    color: $red-mark-color;
+}
+.habitNameIconCheck {
+    color: $green-mark-color;
+}

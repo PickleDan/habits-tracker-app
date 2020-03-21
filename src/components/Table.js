@@ -5,7 +5,7 @@ import { HabitStatus } from "./HabitStatus";
 import { Status } from "./HabitStatus";
 import cloneObject from "../utils/cloneObject";
 import replaceById from "../utils/replaceById";
-import HabitName from "./HabitName";
+import HabitName from "../components/habitName/HabitName";
 import HabitMeasure from "./HabitMeasure";
 import { Habit } from "../models/habit";
 
@@ -33,9 +33,11 @@ export default class Table extends React.Component {
         const { habits } = this.state;
 
         const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
+            e.preventDefault();
             const updatedHabit = cloneObject(habit);
             if (e.type === "click") {
                 if (e.ctrlKey) {
+                    console.log("Click+ctrl");
                     updatedHabit.stats[dayName] = {
                         status: Status.NEUTRAL,
                         dayPotential
@@ -47,7 +49,6 @@ export default class Table extends React.Component {
                     };
                 }
             } else if (e.type === "contextmenu") {
-                e.preventDefault();
                 updatedHabit.stats[dayName] = {
                     status: Status.NOT_SPECIFIED,
                     dayPotential
