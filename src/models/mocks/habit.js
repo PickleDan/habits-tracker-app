@@ -1,4 +1,4 @@
-import { createHabit } from "../habit";
+import { Habit } from "../habit";
 
 const Status = {
   DONE: "DONE",
@@ -7,7 +7,7 @@ const Status = {
   NOT_SPECIFIED: "NOT_SPECIFIED"
 };
 
-const READING_HABIT = createHabit({
+const READING_HABIT = Habit.createHabit({
   id: 1,
   name: "Отслеживание привычек",
   measuringValue: "Каждый день",
@@ -22,7 +22,7 @@ const READING_HABIT = createHabit({
   }
 });
 
-const GYM_HABIT = createHabit({
+const GYM_HABIT = Habit.createHabit({
   id: 2,
   name: "Спортзал",
   measuringValue: "3р/нед",
@@ -37,7 +37,7 @@ const GYM_HABIT = createHabit({
   }
 });
 
-const EARLY_RISE_HABIT = createHabit({
+const EARLY_RISE_HABIT = Habit.createHabit({
   id: 3,
   name: "Ранний подъем",
   measuringValue: "6:30",

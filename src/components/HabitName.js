@@ -2,6 +2,7 @@ import React from "react";
 
 const HabitNames = ({
   habit,
+  inputState,
   inputHabitNameHandler,
   habitInputOnEnterPress
 }) => {
@@ -11,7 +12,6 @@ const HabitNames = ({
         className="habit-name-input"
         value={habit.name}
         onChange={e => inputHabitNameHandler(e, habit)}
-        onKeyPress={e => habitInputOnEnterPress(e)}
       ></input>
     </td>
   );

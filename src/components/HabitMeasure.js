@@ -2,16 +2,15 @@ import React from "react";
 
 const HabitMeasure = ({
   habit,
-  inputMeasuringValueHandler,
-  habitInputOnEnterPress
+  onMeasuringValueChange,
+  onHabitInputEnterPress
 }) => {
   return (
     <td key={habit.id}>
       <input
         className="measuring-value-input"
         value={habit.measuringValue}
-        onChange={e => inputMeasuringValueHandler(e, habit)}
-        onKeyPress={e => habitInputOnEnterPress(e)}
+        onKeyPress={e => onMeasuringValueChange(e, habit)}
         spellCheck="false"
       ></input>
     </td>
