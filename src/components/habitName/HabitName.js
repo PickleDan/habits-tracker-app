@@ -1,29 +1,32 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
-import Style from "./habitName.module.scss";
+import HabitNameStyles from "./HabitName.module.scss";
 
-const HabitNames = ({
+const HabitName = ({
     habit,
     inputState,
-    inputHabitNameHandler,
-    habitInputOnEnterPress
+    handleHabitNameOnChange,
+    handleHabitNameOnClick
 }) => {
     return (
         <td>
-            <form className={Style.habitNameForm}>
+            <form className={HabitNameStyles.habitNameForm}>
                 <input
                     className="habit-name-input"
                     value={habit.name}
-                    onChange={e => inputHabitNameHandler(e, habit)}
+                    onChange={e => handleHabitNameOnChange(e, habit)}
+                    onClick={e => handleHabitNameOnClick(e, "habitName")}
                 ></input>
-                <div className={Style.habitNameButtons}>
+                <div
+                    className={` ${HabitNameStyles.habitNameButtons}, ${HabitNameStyles.habitNameButtonsHidden}`}
+                >
                     <FontAwesomeIcon
-                        className={Style.habitNameIconCheck}
+                        className={HabitNameStyles.habitNameIconCheck}
                         icon={faCheck}
                     />
                     <FontAwesomeIcon
-                        className={Style.habitNameIconDeny}
+                        className={HabitNameStyles.habitNameIconDeny}
                         icon={faTimes}
                     />
                 </div>
@@ -32,4 +35,4 @@ const HabitNames = ({
     );
 };
 
-export default HabitNames;
+export { HabitName, HabitNameStyles };
