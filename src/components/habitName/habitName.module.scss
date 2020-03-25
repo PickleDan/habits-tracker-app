@@ -2,24 +2,23 @@
 
 .habitNameForm {
     display: flex;
+    position: relative;
 }
 
 .habitNameButtons {
+    position: absolute;
+    right: -9px;
+    bottom: 3px;
     padding-right: 10px;
     cursor: pointer;
-    display: none;
-}
-.buttonsShow {
     display: flex !important;
     flex-direction: column;
     justify-content: space-around;
 }
-.habitNameButtonsHidden {
-    display: none;
-}
 
 .habitNameIconDeny {
     color: $red-mark-color;
+    transition: 1s;
 }
 .habitNameIconCheck {
     color: $green-mark-color;

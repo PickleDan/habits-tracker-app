@@ -2,12 +2,26 @@ import React from "react";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HabitMeasureStyles from "./HabitMeasure.module.scss";
+import cn from "classnames";
 
 const HabitMeasure = ({
     habit,
-    onMeasuringValueChange,
-    handleHabitMeasuringOnClick
+    handleHabitMeasuringOnClick,
+    onBlurHabitMeasuring,
+    editingMode
 }) => {
+    const icons = (
+        <>
+            <FontAwesomeIcon
+                className={HabitMeasureStyles.habitMeasuringIconCheck}
+                icon={faCheck}
+            />
+            <FontAwesomeIcon
+                className={HabitMeasureStyles.habitMeasuringIconDeny}
+                icon={faTimes}
+            />
+        </>
+    );
     return (
         <td key={habit.id}>
             <form className={HabitMeasureStyles.habitMeasuringForm}>
@@ -15,21 +29,11 @@ const HabitMeasure = ({
                     className="measuring-value-input"
                     value={habit.measuringValue}
                     spellCheck="false"
-                    onClick={e =>
-                        handleHabitMeasuringOnClick(e, "habitMeasuring")
-                    }
+                    onClick={() => handleHabitMeasuringOnClick(habit)}
+                    onBlur={onBlurHabitMeasuring}
                 ></input>
-                <div
-                    className={` ${HabitMeasureStyles.habitMeasuringButtons}, ${HabitMeasureStyles.habitMeasuringButtonsHidden}`}
-                >
-                    <FontAwesomeIcon
-                        className={HabitMeasureStyles.habitMeasuringIconCheck}
-                        icon={faCheck}
-                    />
-                    <FontAwesomeIcon
-                        className={HabitMeasureStyles.habitMeasuringIconDeny}
-                        icon={faTimes}
-                    />
+                <div className={cn(HabitMeasureStyles.habitMeasuringButtons)}>
+                    {editingMode[habit.id - 1] ? icons : undefined}
                 </div>
             </form>
         </td>

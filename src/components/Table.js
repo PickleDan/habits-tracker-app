@@ -5,8 +5,8 @@ import { HabitStatus } from "./HabitStatus";
 import { Status } from "./HabitStatus";
 import cloneObject from "../utils/cloneObject";
 import replaceById from "../utils/replaceById";
-import { HabitName, HabitNameStyles } from "./habitName/HabitName";
-import { HabitMeasure, HabitMeasureStyles } from "./habitMeasure/HabitMeasure";
+import { HabitName } from "./habitName/HabitName";
+import { HabitMeasure } from "./habitMeasure/HabitMeasure";
 import { Habit } from "../models/habit";
 
 moment.locale("ru");
@@ -25,6 +25,14 @@ const Table = ({ habits, weekDays }) => {
     const [habitsState, setHabitsState] = useState(habits);
 
     const [inputState, setInputState] = useState({ input: "" });
+
+    const [editingNameMode, setEditingNameMode] = useState(
+        habitsState.map(() => false)
+    );
+
+    const [editingMeasureMode, setEditingMeasureMode] = useState(
+        habitsState.map(() => false)
+    );
 
     const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
         e.preventDefault();
@@ -85,21 +93,27 @@ const Table = ({ habits, weekDays }) => {
         }
     };
 
-    const handleHabitNameAndMeasuringOnClick = (e, inputType) => {
-        const nameInputButtons = e.target.nextSibling;
-        console.log("it's input target", e.target);
-        console.log("it's buttons target", nameInputButtons);
-
-        inputType === "habitName"
-            ? nameInputButtons.classList.add(`${HabitNameStyles.buttonsShow}`)
-            : nameInputButtons.classList.add(
-                  `${HabitMeasureStyles.buttonsShow}`
-              );
+    const handleHabitNameOnClick = habit => {
+        const clonedEditingMode = [...editingNameMode];
+        clonedEditingMode[habit.id - 1] = true;
+        setEditingNameMode(clonedEditingMode);
     };
+
+    const onBlurHabitName = () =>
+        setEditingNameMode(editingNameMode.map(() => false));
 
     const handleHabitNameOnChange = (e, habit) => {
         this.setState({ inputState: e.target.value });
     };
+
+    const handleHabitMeasuringOnClick = habit => {
+        const clonedEditingMode = [...editingMeasureMode];
+        clonedEditingMode[habit.id - 1] = true;
+        setEditingMeasureMode(clonedEditingMode);
+    };
+
+    const onBlurHabitMeasuring = () =>
+        setEditingMeasureMode(editingMeasureMode.map(() => false));
 
     const handleMeasuringValueChange = (e, habit) => {
         const { habits } = this.state;
@@ -115,9 +129,10 @@ const Table = ({ habits, weekDays }) => {
             <HabitName
                 key={habit.id}
                 habit={habit}
-                inputState={inputState}
                 handleHabitNameOnChange={handleHabitNameOnChange}
-                handleHabitNameOnClick={handleHabitNameAndMeasuringOnClick}
+                handleHabitNameOnClick={handleHabitNameOnClick}
+                editingMode={editingNameMode}
+                onBlurHabitName={onBlurHabitName}
             />
         );
     });
@@ -129,7 +144,10 @@ const Table = ({ habits, weekDays }) => {
             key={habit.id}
             habit={habit}
             onMeasuringValueChange={handleMeasuringValueChange}
-            handleHabitMeasuringOnClick={handleHabitNameAndMeasuringOnClick}
+            handleHabitMeasuringOnClick={handleHabitMeasuringOnClick}
+            onBlurHabitMeasuring={onBlurHabitMeasuring}
+            editingMode={editingMeasureMode}
+            setEditingMode={setEditingMeasureMode}
         />
     ));
 
