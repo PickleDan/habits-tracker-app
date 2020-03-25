@@ -2,20 +2,18 @@
 
 .habitMeasuringForm {
     display: flex;
+    position: relative;
 }
 
 .habitMeasuringButtons {
     padding-right: 10px;
+    position: absolute;
+    right: -9px;
+    bottom: -4px;
     cursor: pointer;
-    display: none;
-}
-.buttonsShow {
     display: flex !important;
     flex-direction: column;
     justify-content: space-around;
-}
-.habitMeasuringButtonsHidden {
-    display: none;
 }
 
 .habitMeasuringIconDeny {
