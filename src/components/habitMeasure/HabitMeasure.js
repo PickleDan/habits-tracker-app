@@ -8,7 +8,9 @@ const HabitMeasure = ({
     habit,
     handleHabitMeasuringOnClick,
     onBlurHabitMeasuring,
-    editingMode
+    editingMode,
+    handleHabitMeasureOnChange,
+    inputState
 }) => {
     const icons = (
         <>
@@ -27,9 +29,10 @@ const HabitMeasure = ({
             <form className={HabitMeasureStyles.habitMeasuringForm}>
                 <input
                     className="measuring-value-input"
-                    value={habit.measuringValue}
+                    value={inputState[habit.id - 1]}
                     spellCheck="false"
                     onClick={() => handleHabitMeasuringOnClick(habit)}
+                    onChange={e => handleHabitMeasureOnChange(e, habit)}
                     onBlur={onBlurHabitMeasuring}
                 ></input>
                 <div className={cn(HabitMeasureStyles.habitMeasuringButtons)}>

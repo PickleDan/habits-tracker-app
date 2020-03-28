@@ -22,9 +22,27 @@ const dayNumberToDayName = {
 };
 
 const Table = ({ habits, weekDays }) => {
+    console.log(weekDays);
+
     const [habitsState, setHabitsState] = useState(habits);
 
-    const [inputState, setInputState] = useState({ input: "" });
+    const [inputHabitNameState, setInputHabitNameState] = useState(
+        habitsState.map(habit => habit.name)
+    );
+
+    const [inputHabitMeasureState, setInputHabitMeasureState] = useState(
+        habitsState.map(habit => habit.measuringValue)
+    );
+
+    const [inputDayPotentialState, setInputDayPotentialState] = useState([
+        4,
+        6,
+        1,
+        5,
+        7,
+        8,
+        6
+    ]);
 
     const [editingNameMode, setEditingNameMode] = useState(
         habitsState.map(() => false)
@@ -56,7 +74,6 @@ const Table = ({ habits, weekDays }) => {
                 dayPotential
             };
         }
-
         const updatedHabits = replaceById(habitsState, updatedHabit);
         setHabitsState(updatedHabits);
     };
@@ -67,29 +84,18 @@ const Table = ({ habits, weekDays }) => {
             status: Status.FAILED,
             dayPotential
         };
-
         const updatedHabits = replaceById(habitsState, updatedHabit);
-
         setHabitsState(updatedHabits);
     };
 
-    const inputDayPotentialHandler = (
-        e,
-        habitWithDayPotentialData,
-        dayName
-    ) => {
+    const inputDayPotentialHandler = (e, dayOrderNumber) => {
         const inputValue = e.target.value;
-
         if (parseInt(inputValue) > 10 || parseInt(inputValue) <= 0) {
             alert("Вы ввели недопустимое значение, введите число от 1 до 10");
         } else {
-            const updatedHabit = cloneObject(habitWithDayPotentialData);
-            updatedHabit.stats[dayName].dayPotential = inputValue;
-
-            const { habits } = this.state;
-            const updatedHabits = replaceById(habits, updatedHabit);
-
-            this.setState({ habits: updatedHabits });
+            const cloneDayPotentialState = [...inputDayPotentialState];
+            cloneDayPotentialState[dayOrderNumber] = e.target.value;
+            setInputDayPotentialState(cloneDayPotentialState);
         }
     };
 
@@ -103,7 +109,12 @@ const Table = ({ habits, weekDays }) => {
         setEditingNameMode(editingNameMode.map(() => false));
 
     const handleHabitNameOnChange = (e, habit) => {
-        this.setState({ inputState: e.target.value });
+        const updatedHabitNameInput = inputHabitNameState.map(
+            (name, nameId) => {
+                return habit.id - 1 === nameId ? e.target.value : name;
+            }
+        );
+        setInputHabitNameState([updatedHabitNameInput]);
     };
 
     const handleHabitMeasuringOnClick = habit => {
@@ -115,13 +126,13 @@ const Table = ({ habits, weekDays }) => {
     const onBlurHabitMeasuring = () =>
         setEditingMeasureMode(editingMeasureMode.map(() => false));
 
-    const handleMeasuringValueChange = (e, habit) => {
-        const { habits } = this.state;
-        const measuringValue = e.target.value;
-        const updatedHabits = Habit.updateHabit(habits, habit, {
-            measuringValue
-        });
-        this.setState({ habits: updatedHabits });
+    const handleHabitMeasureOnChange = (e, habit) => {
+        const updatedHabitMeasureInput = inputHabitMeasureState.map(
+            (measure, measureId) => {
+                return habit.id - 1 === measureId ? e.target.value : measure;
+            }
+        );
+        setInputHabitMeasureState(updatedHabitMeasureInput);
     };
 
     const listOfHabitsNames = habits.map(habit => {
@@ -129,10 +140,11 @@ const Table = ({ habits, weekDays }) => {
             <HabitName
                 key={habit.id}
                 habit={habit}
-                handleHabitNameOnChange={handleHabitNameOnChange}
                 handleHabitNameOnClick={handleHabitNameOnClick}
                 editingMode={editingNameMode}
                 onBlurHabitName={onBlurHabitName}
+                handleHabitNameOnChange={handleHabitNameOnChange}
+                inputState={inputHabitNameState}
             />
         );
     });
@@ -143,11 +155,12 @@ const Table = ({ habits, weekDays }) => {
         <HabitMeasure
             key={habit.id}
             habit={habit}
-            onMeasuringValueChange={handleMeasuringValueChange}
             handleHabitMeasuringOnClick={handleHabitMeasuringOnClick}
             onBlurHabitMeasuring={onBlurHabitMeasuring}
             editingMode={editingMeasureMode}
             setEditingMode={setEditingMeasureMode}
+            handleHabitMeasureOnChange={handleHabitMeasureOnChange}
+            inputState={inputHabitMeasureState}
         />
     ));
 
@@ -190,15 +203,12 @@ const Table = ({ habits, weekDays }) => {
                                     type="number"
                                     className="day-patential-input"
                                     value={
-                                        habits[0].stats[
-                                            dayNumberToDayName[dayOrderNumber]
-                                        ].dayPotential
+                                        inputDayPotentialState[dayOrderNumber]
                                     }
                                     onChange={e =>
                                         inputDayPotentialHandler(
                                             e,
-                                            habits[0],
-                                            dayNumberToDayName[dayOrderNumber]
+                                            dayOrderNumber
                                         )
                                     }
                                 ></input>

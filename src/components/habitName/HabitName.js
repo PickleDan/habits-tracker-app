@@ -6,10 +6,11 @@ import cn from "classnames";
 
 const HabitName = ({
     habit,
-    handleHabitNameOnChange,
     handleHabitNameOnClick,
     editingMode,
-    onBlurHabitName
+    onBlurHabitName,
+    handleHabitNameOnChange,
+    inputState
 }) => {
     const icons = (
         <>
@@ -28,7 +29,7 @@ const HabitName = ({
             <form className={HabitNameStyles.habitNameForm}>
                 <input
                     className="habit-name-input"
-                    value={habit.name}
+                    value={inputState[habit.id - 1]}
                     onChange={e => handleHabitNameOnChange(e, habit)}
                     onClick={() => handleHabitNameOnClick(habit)}
                     onBlur={onBlurHabitName}
