@@ -9,13 +9,15 @@ const HabitMeasure = ({
     handleHabitMeasuringOnClick,
     editingMode,
     handleHabitMeasureOnChange,
-    inputState
+    inputState,
+    handleAcceptIcon
 }) => {
     const icons = (
         <>
             <FontAwesomeIcon
                 className={HabitMeasureStyles.habitMeasuringIconCheck}
                 icon={faCheck}
+                onClick={e => handleAcceptIcon(habit)}
             />
             <FontAwesomeIcon
                 className={HabitMeasureStyles.habitMeasuringIconDeny}
