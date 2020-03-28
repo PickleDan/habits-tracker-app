@@ -1,35 +1,28 @@
 import cloneObject from "../utils/cloneObject";
 import replaceById from "../utils/replaceById";
 
-const createHabit = ({
-  id,
-  name,
-  measuringValue,
-  stats = [],
-  dayPotentialValue
-}) => ({
-  id,
-  name,
-  measuringValue,
-  stats,
-  dayPotentialValue
+const createHabit = ({ id, name, measuringValue, stats = [] }) => ({
+    id,
+    name,
+    measuringValue,
+    stats
 });
 
 const updateHabit = (habits, habit, habitChanges) => {
-  // const { name, measuringValue } = habitChanges;
-  // if (name.length < 3 || name.length > 100) {
-  //   throw ValidationError();
-  // }
+    // const { name, measuringValue } = habitChanges;
+    // if (name.length < 3 || name.length > 100) {
+    //   throw ValidationError();
+    // }
 
-  const updatedHabit = { ...cloneObject(habit), ...habitChanges };
-  const updatedHabits = replaceById(habits, updatedHabit);
+    const updatedHabit = { ...cloneObject(habit), ...habitChanges };
+    const updatedHabits = replaceById(habits, updatedHabit);
 
-  return updatedHabits;
+    return updatedHabits;
 };
 
 const Habit = {
-  createHabit,
-  updateHabit
+    createHabit,
+    updateHabit
 };
 
 export { Habit };

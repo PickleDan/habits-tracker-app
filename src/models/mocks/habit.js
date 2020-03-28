@@ -12,13 +12,13 @@ const READING_HABIT = Habit.createHabit({
     name: "Отслеживание привычек",
     measuringValue: "Каждый день",
     stats: {
-        MONDAY: { status: Status.DONE, dayPotential: 4 },
-        TUESDAY: { status: Status.DONE, dayPotential: 6 },
-        WEDNESDAY: { status: Status.NOT_SPECIFIED, dayPotential: 8 },
-        THURSDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        FRIDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        SATURDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        SUNDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" }
+        MONDAY: { status: Status.DONE },
+        TUESDAY: { status: Status.DONE },
+        WEDNESDAY: { status: Status.NOT_SPECIFIED },
+        THURSDAY: { status: Status.NOT_SPECIFIED },
+        FRIDAY: { status: Status.NOT_SPECIFIED },
+        SATURDAY: { status: Status.NOT_SPECIFIED },
+        SUNDAY: { status: Status.NOT_SPECIFIED }
     }
 });
 
@@ -27,13 +27,13 @@ const GYM_HABIT = Habit.createHabit({
     name: "Спортзал",
     measuringValue: "3р/нед",
     stats: {
-        MONDAY: { status: Status.FAILED, dayPotential: "" },
-        TUESDAY: { status: Status.DONE, dayPotential: "" },
-        WEDNESDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        THURSDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        FRIDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        SATURDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        SUNDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" }
+        MONDAY: { status: Status.FAILED },
+        TUESDAY: { status: Status.DONE },
+        WEDNESDAY: { status: Status.NOT_SPECIFIED },
+        THURSDAY: { status: Status.NOT_SPECIFIED },
+        FRIDAY: { status: Status.NOT_SPECIFIED },
+        SATURDAY: { status: Status.NOT_SPECIFIED },
+        SUNDAY: { status: Status.NOT_SPECIFIED }
     }
 });
 
@@ -42,15 +42,30 @@ const EARLY_RISE_HABIT = Habit.createHabit({
     name: "Ранний подъем",
     measuringValue: "6:30",
     stats: {
-        MONDAY: { status: Status.DONE, dayPotential: "" },
-        TUESDAY: { status: Status.FAILED, dayPotential: "" },
-        WEDNESDAY: { status: Status.NEUTRAL, dayPotential: "" },
-        THURSDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        FRIDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        SATURDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" },
-        SUNDAY: { status: Status.NOT_SPECIFIED, dayPotential: "" }
+        MONDAY: { status: Status.DONE },
+        TUESDAY: { status: Status.FAILED },
+        WEDNESDAY: { status: Status.NEUTRAL },
+        THURSDAY: { status: Status.NOT_SPECIFIED },
+        FRIDAY: { status: Status.NOT_SPECIFIED },
+        SATURDAY: { status: Status.NOT_SPECIFIED },
+        SUNDAY: { status: Status.NOT_SPECIFIED }
     }
 });
 
-const HABITS = [READING_HABIT, GYM_HABIT, EARLY_RISE_HABIT];
+const NEW_ONE = Habit.createHabit({
+    id: 4,
+    name: "test",
+    measuringValue: "pass/fail",
+    stats: {
+        MONDAY: { status: Status.DONE },
+        TUESDAY: { status: Status.DONE },
+        WEDNESDAY: { status: Status.DONE },
+        THURSDAY: { status: Status.DONE },
+        FRIDAY: { status: Status.DONE },
+        SATURDAY: { status: Status.NOT_SPECIFIED },
+        SUNDAY: { status: Status.NOT_SPECIFIED }
+    }
+});
+
+const HABITS = [READING_HABIT, GYM_HABIT, EARLY_RISE_HABIT, NEW_ONE];
 export { HABITS };
