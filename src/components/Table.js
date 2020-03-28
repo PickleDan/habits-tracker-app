@@ -100,11 +100,11 @@ const Table = ({ habits, weekDays }) => {
     const handleHabitNameOnClick = habit => {
         const clonedEditingMode = [...editingNameMode];
         clonedEditingMode[habit.id - 1] = true;
-        console.log(clonedEditingMode);
+
         setEditingNameMode(clonedEditingMode);
     };
 
-    const onBlurHabitName = () =>
+    const onClickAwayHabitName = () =>
         setEditingNameMode(editingNameMode.map(() => false));
 
     const handleHabitNameOnChange = (e, habit) => {
@@ -122,7 +122,7 @@ const Table = ({ habits, weekDays }) => {
         setEditingMeasureMode(clonedEditingMode);
     };
 
-    const onBlurHabitMeasuring = () =>
+    const onClickAwayHabitMeasuring = () =>
         setEditingMeasureMode(editingMeasureMode.map(() => false));
 
     const handleHabitMeasureOnChange = (e, habit) => {
@@ -134,16 +134,37 @@ const Table = ({ habits, weekDays }) => {
         setInputHabitMeasureState(updatedHabitMeasureInput);
     };
 
-    const handleAcceptIcon = habit => {
-        console.log(habit);
+    const handleNameAcceptIcon = habit => {
+        const currentInput = inputHabitNameState[habit.id - 1];
+        if (currentInput.length > 25 || currentInput.length < 3) {
+            alert(
+                "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
+            );
+        } else {
+            const clonedHabit = cloneObject(habit);
+            clonedHabit.name = inputHabitNameState[clonedHabit.id - 1];
+            const updatedHabits = replaceById(habitsState, clonedHabit);
+            setHabitsState(updatedHabits);
+            alert("Вы успешно сохранили название привычки!");
+            onClickAwayHabitName(); //Doesn't work, find out why so}
+        }
+    };
 
-        const cloneHabit = cloneObject(habit);
-
-        cloneHabit.name = inputHabitNameState[cloneHabit.id - 1];
-        console.log(cloneHabit);
-        const updatedHabits = replaceById(habitsState, cloneHabit);
-
-        setHabitsState(updatedHabits);
+    const handleMeasureAcceptIcon = habit => {
+        const currentInput = inputHabitMeasureState[habit.id - 1];
+        if (currentInput.length > 25 || currentInput.length < 3) {
+            alert(
+                "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
+            );
+        } else {
+            const clonedHabit = cloneObject(habit);
+            clonedHabit.measuringValue =
+                inputHabitMeasureState[clonedHabit.id - 1];
+            const updatedHabits = replaceById(habitsState, clonedHabit);
+            setHabitsState(updatedHabits);
+            alert("Вы успешно сохранили меру привычки!");
+            onClickAwayHabitMeasuring(); //Doesn't work, find out why so}
+        }
     };
 
     const listOfHabitsNames = habits.map(habit => {
@@ -154,10 +175,9 @@ const Table = ({ habits, weekDays }) => {
                 handleHabitNameOnClick={handleHabitNameOnClick}
                 editingMode={editingNameMode}
                 habitsState={habitsState}
-                onBlurHabitName={onBlurHabitName}
                 handleHabitNameOnChange={handleHabitNameOnChange}
                 inputState={inputHabitNameState}
-                handleAcceptIcon={handleAcceptIcon}
+                handleAcceptIcon={handleNameAcceptIcon}
             />
         );
     });
@@ -169,11 +189,11 @@ const Table = ({ habits, weekDays }) => {
             key={habit.id}
             habit={habit}
             handleHabitMeasuringOnClick={handleHabitMeasuringOnClick}
-            onBlurHabitMeasuring={onBlurHabitMeasuring}
             editingMode={editingMeasureMode}
             setEditingMode={setEditingMeasureMode}
             handleHabitMeasureOnChange={handleHabitMeasureOnChange}
             inputState={inputHabitMeasureState}
+            handleAcceptIcon={handleMeasureAcceptIcon}
         />
     ));
 
@@ -181,7 +201,7 @@ const Table = ({ habits, weekDays }) => {
         <div className="table-wrapper container">
             <table className="table table-bordered">
                 <thead>
-                    <ClickAwayListener onClickAway={onBlurHabitName}>
+                    <ClickAwayListener onClickAway={onClickAwayHabitName}>
                         <tr>
                             <th>Навык</th>
 
@@ -190,7 +210,7 @@ const Table = ({ habits, weekDays }) => {
                             <td>Потенциал дня</td>
                         </tr>
                     </ClickAwayListener>
-                    <ClickAwayListener onClickAway={onBlurHabitMeasuring}>
+                    <ClickAwayListener onClickAway={onClickAwayHabitMeasuring}>
                         <tr>
                             <th>Норма</th>
                             {listOfMeasureValue}
