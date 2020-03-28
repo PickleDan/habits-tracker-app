@@ -7,7 +7,7 @@ import cloneObject from "../utils/cloneObject";
 import replaceById from "../utils/replaceById";
 import { HabitName } from "./habitName/HabitName";
 import { HabitMeasure } from "./habitMeasure/HabitMeasure";
-import { Habit } from "../models/habit";
+import { ClickAwayListener } from "@material-ui/core";
 
 moment.locale("ru");
 
@@ -22,8 +22,6 @@ const dayNumberToDayName = {
 };
 
 const Table = ({ habits, weekDays }) => {
-    console.log(weekDays);
-
     const [habitsState, setHabitsState] = useState(habits);
 
     const [inputHabitNameState, setInputHabitNameState] = useState(
@@ -102,6 +100,7 @@ const Table = ({ habits, weekDays }) => {
     const handleHabitNameOnClick = habit => {
         const clonedEditingMode = [...editingNameMode];
         clonedEditingMode[habit.id - 1] = true;
+        console.log(clonedEditingMode);
         setEditingNameMode(clonedEditingMode);
     };
 
@@ -114,7 +113,7 @@ const Table = ({ habits, weekDays }) => {
                 return habit.id - 1 === nameId ? e.target.value : name;
             }
         );
-        setInputHabitNameState([updatedHabitNameInput]);
+        setInputHabitNameState(updatedHabitNameInput);
     };
 
     const handleHabitMeasuringOnClick = habit => {
@@ -135,6 +134,18 @@ const Table = ({ habits, weekDays }) => {
         setInputHabitMeasureState(updatedHabitMeasureInput);
     };
 
+    const handleAcceptIcon = habit => {
+        console.log(habit);
+
+        const cloneHabit = cloneObject(habit);
+
+        cloneHabit.name = inputHabitNameState[cloneHabit.id - 1];
+        console.log(cloneHabit);
+        const updatedHabits = replaceById(habitsState, cloneHabit);
+
+        setHabitsState(updatedHabits);
+    };
+
     const listOfHabitsNames = habits.map(habit => {
         return (
             <HabitName
@@ -142,9 +153,11 @@ const Table = ({ habits, weekDays }) => {
                 habit={habit}
                 handleHabitNameOnClick={handleHabitNameOnClick}
                 editingMode={editingNameMode}
+                habitsState={habitsState}
                 onBlurHabitName={onBlurHabitName}
                 handleHabitNameOnChange={handleHabitNameOnChange}
                 inputState={inputHabitNameState}
+                handleAcceptIcon={handleAcceptIcon}
             />
         );
     });
@@ -168,16 +181,22 @@ const Table = ({ habits, weekDays }) => {
         <div className="table-wrapper container">
             <table className="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Навык</th>
-                        {listOfHabitsNames}
-                        <td>Потенциал дня</td>
-                    </tr>
-                    <tr>
-                        <th>Норма</th>
-                        {listOfMeasureValue}
-                        <td>1...10</td>
-                    </tr>
+                    <ClickAwayListener onClickAway={onBlurHabitName}>
+                        <tr>
+                            <th>Навык</th>
+
+                            {listOfHabitsNames}
+
+                            <td>Потенциал дня</td>
+                        </tr>
+                    </ClickAwayListener>
+                    <ClickAwayListener onClickAway={onBlurHabitMeasuring}>
+                        <tr>
+                            <th>Норма</th>
+                            {listOfMeasureValue}
+                            <td>1...10</td>
+                        </tr>
+                    </ClickAwayListener>
                 </thead>
                 <tbody>
                     {weekDays.map((day, dayOrderNumber) => (

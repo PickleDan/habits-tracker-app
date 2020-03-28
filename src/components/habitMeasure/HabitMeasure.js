@@ -7,7 +7,6 @@ import cn from "classnames";
 const HabitMeasure = ({
     habit,
     handleHabitMeasuringOnClick,
-    onBlurHabitMeasuring,
     editingMode,
     handleHabitMeasureOnChange,
     inputState
@@ -25,15 +24,13 @@ const HabitMeasure = ({
         </>
     );
     return (
-        <td key={habit.id}>
+        <td key={habit.id} onClick={() => handleHabitMeasuringOnClick(habit)}>
             <form className={HabitMeasureStyles.habitMeasuringForm}>
                 <input
                     className="measuring-value-input"
                     value={inputState[habit.id - 1]}
                     spellCheck="false"
-                    onClick={() => handleHabitMeasuringOnClick(habit)}
                     onChange={e => handleHabitMeasureOnChange(e, habit)}
-                    onBlur={onBlurHabitMeasuring}
                 ></input>
                 <div className={cn(HabitMeasureStyles.habitMeasuringButtons)}>
                     {editingMode[habit.id - 1] ? icons : undefined}
