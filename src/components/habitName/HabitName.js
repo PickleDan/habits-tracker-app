@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
-import HabitNameStyles from "./HabitName.module.scss";
+import HabitNameStyles from "./habitName.module.scss";
 import cn from "classnames";
 import { ClickAwayListener } from "@material-ui/core";
 const HabitName = ({
