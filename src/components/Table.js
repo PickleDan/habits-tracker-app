@@ -8,7 +8,12 @@ import replaceById from "../utils/replaceById";
 import { HabitName } from "./habitName/HabitName";
 import { HabitMeasure } from "./habitMeasure/HabitMeasure";
 import { ClickAwayListener } from "@material-ui/core";
-
+import {
+    faTimes,
+    faCheck,
+    faPlusCircle
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 moment.locale("ru");
 
 const dayNumberToDayName = {
@@ -199,6 +204,11 @@ const Table = ({ habits, weekDays }) => {
 
     return (
         <div className="table-wrapper container">
+            <FontAwesomeIcon
+                size="2x"
+                icon={faPlusCircle}
+                className="plusIcon"
+            />
             <table className="table table-bordered">
                 <thead>
                     <ClickAwayListener onClickAway={onClickAwayHabitName}>
