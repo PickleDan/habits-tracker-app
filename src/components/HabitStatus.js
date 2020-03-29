@@ -1,7 +1,7 @@
 import React from "react";
-import GreenMark from "./statusMarks/GreenMark";
-import RedMark from "./statusMarks/RedMark";
-import NeutralMark from "./statusMarks/NeutralMark";
+import GreenMark from "./StatusMarks/GreenMark";
+import RedMark from "./StatusMarks/RedMark";
+import NeutralMark from "./StatusMarks/NeutralMark";
 
 const Status = {
   DONE: "DONE",
