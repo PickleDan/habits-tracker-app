@@ -8,12 +8,9 @@ import replaceById from "../utils/replaceById";
 import { HabitName } from "./habitName/HabitName";
 import { HabitMeasure } from "./habitMeasure/HabitMeasure";
 import { ClickAwayListener } from "@material-ui/core";
-import {
-    faTimes,
-    faCheck,
-    faPlusCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Modal from "react-modal";
 moment.locale("ru");
 
 const dayNumberToDayName = {
@@ -54,6 +51,8 @@ const Table = ({ habits, weekDays }) => {
     const [editingMeasureMode, setEditingMeasureMode] = useState(
         habitsState.map(() => false)
     );
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
         e.preventDefault();
@@ -172,6 +171,10 @@ const Table = ({ habits, weekDays }) => {
         }
     };
 
+    const handlePlusIconClick = () => {
+        setModalIsOpen(true);
+    };
+
     const listOfHabitsNames = habits.map(habit => {
         return (
             <HabitName
@@ -202,9 +205,45 @@ const Table = ({ habits, weekDays }) => {
         />
     ));
 
+    const customStyles = {
+        content: {
+            backgroundColor: "#2364aa",
+            color: "#fff",
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px"
+        }
+    };
     return (
         <div className="table-wrapper container">
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                style={customStyles}
+            >
+                <h2 className="modal-title">Введите данные о привычке</h2>
+                <form>
+                    <div className="modal-inputs">
+                        <div className="modal-inputs-item">
+                            <input placeholder="Введите название новой привычки"></input>
+                        </div>
+
+                        <div className="modal-inputs-item">
+                            <input placeholder="Введите норму привычки"></input>
+                        </div>
+                    </div>
+                    <div className="modal-buttons">
+                        <button>Отменить</button>
+                        <button>Сохранить</button>
+                    </div>
+                </form>
+            </Modal>
             <FontAwesomeIcon
+                onClick={() => handlePlusIconClick()}
                 size="2x"
                 icon={faPlusCircle}
                 className="plusIcon"
