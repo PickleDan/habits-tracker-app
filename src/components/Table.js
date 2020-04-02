@@ -22,7 +22,6 @@ const dayNumberToDayName = {
     5: "SATURDAY",
     6: "SUNDAY"
 };
-
 const Table = ({ habits, weekDays }) => {
     const [habitsState, setHabitsState] = useState(habits);
 
@@ -53,6 +52,21 @@ const Table = ({ habits, weekDays }) => {
     );
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const [newHabitAdding, setNewHabitAdding] = useState({
+        id: habitsState.length + 1,
+        name: "",
+        measuringValue: "",
+        stats: {
+            MONDAY: { status: Status.NOT_SPECIFIED },
+            TUESDAY: { status: Status.NOT_SPECIFIED },
+            WEDNESDAY: { status: Status.NOT_SPECIFIED },
+            THURSDAY: { status: Status.NOT_SPECIFIED },
+            FRIDAY: { status: Status.NOT_SPECIFIED },
+            SATURDAY: { status: Status.NOT_SPECIFIED },
+            SUNDAY: { status: Status.NOT_SPECIFIED }
+        }
+    });
 
     const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
         e.preventDefault();
@@ -171,8 +185,27 @@ const Table = ({ habits, weekDays }) => {
         }
     };
 
-    const handlePlusIconClick = () => {
-        setModalIsOpen(true);
+    const handlePlusIconClick = () => setModalIsOpen(true);
+
+    const onChangeHabitNameModal = e => {
+        const inputValue = e.target.value;
+        const clonedHabit = cloneObject(newHabitAdding);
+        clonedHabit.name = inputValue;
+        setNewHabitAdding(clonedHabit);
+    };
+
+    const onChangeHabitMeasureModal = e => {
+        const inputValue = e.target.value;
+        const clonedHabit = cloneObject(newHabitAdding);
+        clonedHabit.measuringValue = inputValue;
+        setNewHabitAdding(clonedHabit);
+    };
+
+    const saveNewHabit = e => {
+        e.preventDefault();
+        const clonedHabits = cloneObject(habitsState);
+        clonedHabits.push(newHabitAdding);
+        setHabitsState(clonedHabits);
     };
 
     const listOfHabitsNames = habits.map(habit => {
@@ -205,7 +238,7 @@ const Table = ({ habits, weekDays }) => {
         />
     ));
 
-    const customStyles = {
+    const customModalStyles = {
         content: {
             backgroundColor: "#2364aa",
             color: "#fff",
@@ -218,27 +251,36 @@ const Table = ({ habits, weekDays }) => {
             borderRadius: "10px"
         }
     };
+    Modal.setAppElement("#root");
     return (
         <div className="table-wrapper container">
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
-                style={customStyles}
+                style={customModalStyles}
             >
                 <h2 className="modal-title">Введите данные о привычке</h2>
                 <form>
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
-                            <input placeholder="Введите название новой привычки"></input>
+                            <input
+                                onChange={e => onChangeHabitNameModal(e)}
+                                placeholder="Введите название новой привычки"
+                            ></input>
                         </div>
 
                         <div className="modal-inputs-item">
-                            <input placeholder="Введите норму привычки"></input>
+                            <input
+                                onChange={e => onChangeHabitMeasureModal(e)}
+                                placeholder="Введите норму привычки"
+                            ></input>
                         </div>
                     </div>
                     <div className="modal-buttons">
                         <button>Отменить</button>
-                        <button>Сохранить</button>
+                        <button onClick={e => saveNewHabit(e)}>
+                            Сохранить
+                        </button>
                     </div>
                 </form>
             </Modal>

@@ -61,8 +61,8 @@ const NEW_ONE = Habit.createHabit({
         TUESDAY: { status: Status.DONE },
         WEDNESDAY: { status: Status.DONE },
         THURSDAY: { status: Status.DONE },
-        FRIDAY: { status: Status.DONE },
-        SATURDAY: { status: Status.NOT_SPECIFIED },
+        FRIDAY: { status: Status.NOT_SPECIFIED },
+        SATURDAY: { status: Status.NEUTRAL },
         SUNDAY: { status: Status.NOT_SPECIFIED }
     }
 });
