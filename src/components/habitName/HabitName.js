@@ -28,7 +28,7 @@ const HabitName = ({ habit, handleAcceptIcon }) => {
 
     return (
         <ClickAwayListener onClickAway={onClickAway}>
-            <td onClick={() => setEditingMode(true)}>
+            <th onClick={() => setEditingMode(true)}>
                 <form className={HabitNameStyles.habitNameForm}>
                     <input
                         className="habit-name-input"
@@ -40,7 +40,7 @@ const HabitName = ({ habit, handleAcceptIcon }) => {
                         {editingMode && icons}
                     </div>
                 </form>
-            </td>
+            </th>
         </ClickAwayListener>
     );
 };

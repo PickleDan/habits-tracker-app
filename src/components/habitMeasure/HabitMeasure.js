@@ -17,7 +17,7 @@ const HabitMeasure = ({ habit, handleAcceptIcon }) => {
                 className={HabitMeasureStyles.habitMeasuringIconCheck}
                 icon={faCheck}
                 onClick={(e) =>
-                    handleAcceptIcon({ id: habit.id, name: inputState })
+                    handleAcceptIcon({ id: habit.id, measure: inputState })
                 }
             />
             <FontAwesomeIcon
@@ -28,7 +28,7 @@ const HabitMeasure = ({ habit, handleAcceptIcon }) => {
     );
     return (
         <ClickAwayListener onClickAway={onClickAway}>
-            <td key={habit.id} onClick={() => setEditingMode(true)}>
+            <th key={habit.id} onClick={() => setEditingMode(true)}>
                 <form className={HabitMeasureStyles.habitMeasuringForm}>
                     <input
                         className="measuring-value-input"
@@ -42,7 +42,7 @@ const HabitMeasure = ({ habit, handleAcceptIcon }) => {
                         {editingMode && icons}
                     </div>
                 </form>
-            </td>
+            </th>
         </ClickAwayListener>
     );
 };

@@ -1,27 +1,27 @@
 @import "../../scss/config";
 
 .habitNameForm {
-  display: flex;
-  position: relative;
+    display: flex;
+    position: relative;
 }
 
 .habitNameButtons {
-  position: absolute;
-  right: -5px;
-  bottom: 3px;
-  padding-right: 10px;
-  cursor: pointer;
-  display: flex !important;
-  flex-direction: column;
-  justify-content: space-around;
+    position: absolute;
+    right: -18px;
+    bottom: 3px;
+    padding-right: 10px;
+    cursor: pointer;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .habitNameIconDeny {
-  color: $red-mark-color;
-  transition: 1s;
+    color: $red-mark-color;
+    transition: 1s;
 }
 
 .habitNameIconCheck {
-  color: $green-mark-color;
-  z-index: 5;
+    color: $green-mark-color;
+    z-index: 5;
 }

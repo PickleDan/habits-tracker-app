@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "moment/locale/ru";
 import { HabitStatus } from "./HabitStatus";
@@ -7,10 +7,10 @@ import cloneObject from "../utils/cloneObject";
 import replaceById from "../utils/replaceById";
 import { HabitName } from "./habitName/HabitName";
 import { HabitMeasure } from "./habitMeasure/HabitMeasure";
-import { ClickAwayListener } from "@material-ui/core";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
+import { Container } from "react-bootstrap";
 
 moment.locale("ru");
 
@@ -25,19 +25,6 @@ const dayNumberToDayName = {
 };
 const Table = ({ habits, weekDays }) => {
     const [habitsState, setHabitsState] = useState(habits);
-
-    // const [inputHabitNameState, setInputHabitNameState] = useState(
-    //     habitsState.map(habit => habit.name)
-    // );
-
-    const [inputHabitMeasureState, setInputHabitMeasureState] = useState(
-        habitsState.map((habit) => habit.measuringValue)
-    );
-
-    // useEffect(() => {
-    //     setInputHabitNameState(habitsState.map(habit => habit.name));
-    //     setInputHabitMeasureState(habitsState.map(habit => habit.measuringValue));
-    // }, [habitsState])
 
     const [inputDayPotentialState, setInputDayPotentialState] = useState([
         4,
@@ -58,8 +45,7 @@ const Table = ({ habits, weekDays }) => {
     );
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    const [newHabitAdding, setNewHabitAdding] = useState({
+    const initNewHabit = {
         id: habitsState.length + 1,
         name: "",
         measuringValue: "",
@@ -72,7 +58,15 @@ const Table = ({ habits, weekDays }) => {
             SATURDAY: { status: Status.NOT_SPECIFIED },
             SUNDAY: { status: Status.NOT_SPECIFIED },
         },
-    });
+    };
+    const [newHabitAdding, setNewHabitAdding] = useState(initNewHabit);
+
+    useEffect(() => {
+        setNewHabitAdding({
+            id: habitsState.length + 1,
+            ...initNewHabit,
+        });
+    }, [habitsState]);
 
     const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
         e.preventDefault();
@@ -128,39 +122,13 @@ const Table = ({ habits, weekDays }) => {
         setEditingNameMode(clonedEditingMode);
     };
 
-    const onClickAwayHabitName = () =>
-        setEditingNameMode(editingNameMode.map(() => false));
-
     const handleHabitMeasuringOnClick = (habit) => {
         const clonedEditingMode = [...editingMeasureMode];
         clonedEditingMode[habit.id - 1] = true;
         setEditingMeasureMode(clonedEditingMode);
     };
 
-    const handleHabitMeasureOnChange = (e, habit) => {
-        const updatedHabitMeasureInput = inputHabitMeasureState.map(
-            (measure, measureId) => {
-                return habit.id - 1 === measureId ? e.target.value : measure;
-            }
-        );
-        setInputHabitMeasureState(updatedHabitMeasureInput);
-    };
-
     const handleNameAcceptIcon = (newHabit) => {
-        if (newHabit.length > 25 || newHabit.length < 3) {
-            alert(
-                "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
-            );
-        } else {
-            const updatedHabits = replaceById(habitsState, newHabit);
-            setHabitsState(updatedHabits);
-            alert("Вы успешно сохранили название привычки!");
-            onClickAwayHabitName(); //Doesn't work, find out why so}
-        }
-    };
-
-    const handleMeasureAcceptIcon = (newHabit) => {
-        console.log("new habbit is come", newHabit);
         if (newHabit.name.length > 25 || newHabit.name.length < 3) {
             alert(
                 "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
@@ -168,8 +136,20 @@ const Table = ({ habits, weekDays }) => {
         } else {
             const updatedHabits = replaceById(habitsState, newHabit);
             setHabitsState(updatedHabits);
+            alert("Вы успешно сохранили название привычки!");
+        }
+    };
+
+    const handleMeasureAcceptIcon = (newHabit) => {
+        console.log("new habbit is come", newHabit);
+        if (newHabit.measure.length > 25 || newHabit.measure.length < 3) {
+            alert(
+                "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
+            );
+        } else {
+            const updatedHabits = replaceById(habitsState, newHabit);
+            setHabitsState(updatedHabits);
             alert("Вы успешно сохранили меру привычки!");
-            onClickAwayHabitName(); //Doesn't work, find out why so}
         }
     };
 
@@ -222,8 +202,6 @@ const Table = ({ habits, weekDays }) => {
             habit={habit}
             handleHabitMeasuringOnClick={handleHabitMeasuringOnClick}
             editingMode={editingMeasureMode}
-            handleHabitMeasureOnChange={handleHabitMeasureOnChange}
-            inputState={inputHabitMeasureState}
             handleAcceptIcon={handleMeasureAcceptIcon}
         />
     ));
@@ -243,7 +221,7 @@ const Table = ({ habits, weekDays }) => {
     };
     Modal.setAppElement("#root");
     return (
-        <div className="table-wrapper container">
+        <Container fluid className="table-wrapper">
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
@@ -295,13 +273,13 @@ const Table = ({ habits, weekDays }) => {
                     <tr>
                         <th>Норма</th>
                         {listOfMeasureValue}
-                        <td>1...10</td>
+                        <th>1...10</th>
                     </tr>
                 </thead>
                 <tbody>
                     {weekDays.map((day, dayOrderNumber) => (
                         <tr className="status-cell" key={day.toString()}>
-                            <th scope="row">{day.format("DD.MM.YY dd")}</th>
+                            <th scope="row">{day.format("DD.MM")}</th>
                             {habitsState.map((habit) => (
                                 <td key={habit.id}>
                                     <HabitStatus
@@ -336,7 +314,7 @@ const Table = ({ habits, weekDays }) => {
                     ))}
                 </tbody>
             </table>
-        </div>
+        </Container>
     );
 };
 
