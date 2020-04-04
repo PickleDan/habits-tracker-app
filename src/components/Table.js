@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/locale/ru";
 import { HabitStatus } from "./HabitStatus";
@@ -11,6 +11,7 @@ import { ClickAwayListener } from "@material-ui/core";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
+
 moment.locale("ru");
 
 const dayNumberToDayName = {
@@ -20,18 +21,23 @@ const dayNumberToDayName = {
     3: "THURSDAY",
     4: "FRIDAY",
     5: "SATURDAY",
-    6: "SUNDAY"
+    6: "SUNDAY",
 };
 const Table = ({ habits, weekDays }) => {
     const [habitsState, setHabitsState] = useState(habits);
 
-    const [inputHabitNameState, setInputHabitNameState] = useState(
-        habitsState.map(habit => habit.name)
-    );
+    // const [inputHabitNameState, setInputHabitNameState] = useState(
+    //     habitsState.map(habit => habit.name)
+    // );
 
     const [inputHabitMeasureState, setInputHabitMeasureState] = useState(
-        habitsState.map(habit => habit.measuringValue)
+        habitsState.map((habit) => habit.measuringValue)
     );
+
+    // useEffect(() => {
+    //     setInputHabitNameState(habitsState.map(habit => habit.name));
+    //     setInputHabitMeasureState(habitsState.map(habit => habit.measuringValue));
+    // }, [habitsState])
 
     const [inputDayPotentialState, setInputDayPotentialState] = useState([
         4,
@@ -40,7 +46,7 @@ const Table = ({ habits, weekDays }) => {
         5,
         7,
         8,
-        6
+        6,
     ]);
 
     const [editingNameMode, setEditingNameMode] = useState(
@@ -64,8 +70,8 @@ const Table = ({ habits, weekDays }) => {
             THURSDAY: { status: Status.NOT_SPECIFIED },
             FRIDAY: { status: Status.NOT_SPECIFIED },
             SATURDAY: { status: Status.NOT_SPECIFIED },
-            SUNDAY: { status: Status.NOT_SPECIFIED }
-        }
+            SUNDAY: { status: Status.NOT_SPECIFIED },
+        },
     });
 
     const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
@@ -76,18 +82,18 @@ const Table = ({ habits, weekDays }) => {
                 console.log("Click+ctrl");
                 updatedHabit.stats[dayName] = {
                     status: Status.NEUTRAL,
-                    dayPotential
+                    dayPotential,
                 };
             } else {
                 updatedHabit.stats[dayName] = {
                     status: Status.DONE,
-                    dayPotential
+                    dayPotential,
                 };
             }
         } else if (e.type === "contextmenu") {
             updatedHabit.stats[dayName] = {
                 status: Status.NOT_SPECIFIED,
-                dayPotential
+                dayPotential,
             };
         }
         const updatedHabits = replaceById(habitsState, updatedHabit);
@@ -98,7 +104,7 @@ const Table = ({ habits, weekDays }) => {
         const updatedHabit = cloneObject(habit);
         updatedHabit.stats[dayName] = {
             status: Status.FAILED,
-            dayPotential
+            dayPotential,
         };
         const updatedHabits = replaceById(habitsState, updatedHabit);
         setHabitsState(updatedHabits);
@@ -115,7 +121,7 @@ const Table = ({ habits, weekDays }) => {
         }
     };
 
-    const handleHabitNameOnClick = habit => {
+    const handleHabitNameOnClick = (habit) => {
         const clonedEditingMode = [...editingNameMode];
         clonedEditingMode[habit.id - 1] = true;
 
@@ -125,23 +131,11 @@ const Table = ({ habits, weekDays }) => {
     const onClickAwayHabitName = () =>
         setEditingNameMode(editingNameMode.map(() => false));
 
-    const handleHabitNameOnChange = (e, habit) => {
-        const updatedHabitNameInput = inputHabitNameState.map(
-            (name, nameId) => {
-                return habit.id - 1 === nameId ? e.target.value : name;
-            }
-        );
-        setInputHabitNameState(updatedHabitNameInput);
-    };
-
-    const handleHabitMeasuringOnClick = habit => {
+    const handleHabitMeasuringOnClick = (habit) => {
         const clonedEditingMode = [...editingMeasureMode];
         clonedEditingMode[habit.id - 1] = true;
         setEditingMeasureMode(clonedEditingMode);
     };
-
-    const onClickAwayHabitMeasuring = () =>
-        setEditingMeasureMode(editingMeasureMode.map(() => false));
 
     const handleHabitMeasureOnChange = (e, habit) => {
         const updatedHabitMeasureInput = inputHabitMeasureState.map(
@@ -152,63 +146,64 @@ const Table = ({ habits, weekDays }) => {
         setInputHabitMeasureState(updatedHabitMeasureInput);
     };
 
-    const handleNameAcceptIcon = habit => {
-        const currentInput = inputHabitNameState[habit.id - 1];
-        if (currentInput.length > 25 || currentInput.length < 3) {
+    const handleNameAcceptIcon = (newHabit) => {
+        if (newHabit.length > 25 || newHabit.length < 3) {
             alert(
                 "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
             );
         } else {
-            const clonedHabit = cloneObject(habit);
-            clonedHabit.name = inputHabitNameState[clonedHabit.id - 1];
-            const updatedHabits = replaceById(habitsState, clonedHabit);
+            const updatedHabits = replaceById(habitsState, newHabit);
             setHabitsState(updatedHabits);
             alert("Вы успешно сохранили название привычки!");
             onClickAwayHabitName(); //Doesn't work, find out why so}
         }
     };
 
-    const handleMeasureAcceptIcon = habit => {
-        const currentInput = inputHabitMeasureState[habit.id - 1];
-        if (currentInput.length > 25 || currentInput.length < 3) {
+    const handleMeasureAcceptIcon = (newHabit) => {
+        console.log("new habbit is come", newHabit);
+        if (newHabit.name.length > 25 || newHabit.name.length < 3) {
             alert(
                 "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
             );
         } else {
-            const clonedHabit = cloneObject(habit);
-            clonedHabit.measuringValue =
-                inputHabitMeasureState[clonedHabit.id - 1];
-            const updatedHabits = replaceById(habitsState, clonedHabit);
+            const updatedHabits = replaceById(habitsState, newHabit);
             setHabitsState(updatedHabits);
             alert("Вы успешно сохранили меру привычки!");
-            onClickAwayHabitMeasuring(); //Doesn't work, find out why so}
+            onClickAwayHabitName(); //Doesn't work, find out why so}
         }
     };
 
     const handlePlusIconClick = () => setModalIsOpen(true);
 
-    const onChangeHabitNameModal = e => {
+    const onChangeHabitNameModal = (e) => {
         const inputValue = e.target.value;
         const clonedHabit = cloneObject(newHabitAdding);
         clonedHabit.name = inputValue;
         setNewHabitAdding(clonedHabit);
     };
 
-    const onChangeHabitMeasureModal = e => {
+    const onChangeHabitMeasureModal = (e) => {
         const inputValue = e.target.value;
         const clonedHabit = cloneObject(newHabitAdding);
         clonedHabit.measuringValue = inputValue;
         setNewHabitAdding(clonedHabit);
     };
 
-    const saveNewHabit = e => {
+    const saveNewHabit = (e) => {
         e.preventDefault();
         const clonedHabits = cloneObject(habitsState);
         clonedHabits.push(newHabitAdding);
         setHabitsState(clonedHabits);
+        setModalIsOpen(false);
     };
 
-    const listOfHabitsNames = habits.map(habit => {
+    const onClickCancelModal = (e) => {
+        e.preventDefault();
+        setModalIsOpen(false);
+    };
+
+    console.log({ habitsState });
+    const listOfHabitsNames = habitsState.map((habit) => {
         return (
             <HabitName
                 key={habit.id}
@@ -216,22 +211,17 @@ const Table = ({ habits, weekDays }) => {
                 handleHabitNameOnClick={handleHabitNameOnClick}
                 editingMode={editingNameMode}
                 habitsState={habitsState}
-                handleHabitNameOnChange={handleHabitNameOnChange}
-                inputState={inputHabitNameState}
                 handleAcceptIcon={handleNameAcceptIcon}
             />
         );
     });
-    // input -> enter was pressed -> updateHabit
-    //                                   |--> success
-    //                                   |--> validation failed
-    const listOfMeasureValue = habits.map(habit => (
+
+    const listOfMeasureValue = habitsState.map((habit) => (
         <HabitMeasure
             key={habit.id}
             habit={habit}
             handleHabitMeasuringOnClick={handleHabitMeasuringOnClick}
             editingMode={editingMeasureMode}
-            setEditingMode={setEditingMeasureMode}
             handleHabitMeasureOnChange={handleHabitMeasureOnChange}
             inputState={inputHabitMeasureState}
             handleAcceptIcon={handleMeasureAcceptIcon}
@@ -248,8 +238,8 @@ const Table = ({ habits, weekDays }) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            borderRadius: "10px"
-        }
+            borderRadius: "10px",
+        },
     };
     Modal.setAppElement("#root");
     return (
@@ -264,21 +254,23 @@ const Table = ({ habits, weekDays }) => {
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
                             <input
-                                onChange={e => onChangeHabitNameModal(e)}
+                                onChange={(e) => onChangeHabitNameModal(e)}
                                 placeholder="Введите название новой привычки"
-                            ></input>
+                            />
                         </div>
 
                         <div className="modal-inputs-item">
                             <input
-                                onChange={e => onChangeHabitMeasureModal(e)}
+                                onChange={(e) => onChangeHabitMeasureModal(e)}
                                 placeholder="Введите норму привычки"
                             ></input>
                         </div>
                     </div>
                     <div className="modal-buttons">
-                        <button>Отменить</button>
-                        <button onClick={e => saveNewHabit(e)}>
+                        <button onClick={(e) => onClickCancelModal(e)}>
+                            Отменить
+                        </button>
+                        <button onClick={(e) => saveNewHabit(e)}>
                             Сохранить
                         </button>
                     </div>
@@ -292,28 +284,25 @@ const Table = ({ habits, weekDays }) => {
             />
             <table className="table table-bordered">
                 <thead>
-                    <ClickAwayListener onClickAway={onClickAwayHabitName}>
-                        <tr>
-                            <th>Навык</th>
+                    <tr>
+                        <th>Навык</th>
 
-                            {listOfHabitsNames}
+                        {listOfHabitsNames}
 
-                            <td>Потенциал дня</td>
-                        </tr>
-                    </ClickAwayListener>
-                    <ClickAwayListener onClickAway={onClickAwayHabitMeasuring}>
-                        <tr>
-                            <th>Норма</th>
-                            {listOfMeasureValue}
-                            <td>1...10</td>
-                        </tr>
-                    </ClickAwayListener>
+                        <td>Потенциал дня</td>
+                    </tr>
+
+                    <tr>
+                        <th>Норма</th>
+                        {listOfMeasureValue}
+                        <td>1...10</td>
+                    </tr>
                 </thead>
                 <tbody>
                     {weekDays.map((day, dayOrderNumber) => (
                         <tr className="status-cell" key={day.toString()}>
                             <th scope="row">{day.format("DD.MM.YY dd")}</th>
-                            {habitsState.map(habit => (
+                            {habitsState.map((habit) => (
                                 <td key={habit.id}>
                                     <HabitStatus
                                         onClickCell={oneClickCellHandler}
@@ -335,7 +324,7 @@ const Table = ({ habits, weekDays }) => {
                                     value={
                                         inputDayPotentialState[dayOrderNumber]
                                     }
-                                    onChange={e =>
+                                    onChange={(e) =>
                                         inputDayPotentialHandler(
                                             e,
                                             dayOrderNumber

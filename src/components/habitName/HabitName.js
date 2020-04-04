@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
 import HabitNameStyles from "./HabitName.module.scss";
-import cn from "classnames";
 import { ClickAwayListener } from "@material-ui/core";
-const HabitName = ({
-    habit,
-    handleHabitNameOnClick,
-    editingMode,
-    handleHabitNameOnChange,
-    inputState,
-    handleAcceptIcon
-}) => {
+import cn from "classnames";
+const HabitName = ({ habit, handleAcceptIcon }) => {
+    const onClickAway = () => {
+        setEditingMode(false);
+    };
+    const [inputState, setInputState] = useState(habit.name);
+    const [editingMode, setEditingMode] = useState(false);
     const icons = (
         <>
             <FontAwesomeIcon
                 className={HabitNameStyles.habitNameIconCheck}
                 icon={faCheck}
-                onClick={e => handleAcceptIcon(habit)}
+                onClick={(e) =>
+                    handleAcceptIcon({ name: inputState, id: habit.id })
+                }
             />
             <FontAwesomeIcon
                 className={HabitNameStyles.habitNameIconDeny}
@@ -27,19 +27,21 @@ const HabitName = ({
     );
 
     return (
-        <td onClick={() => handleHabitNameOnClick(habit)}>
-            <form className={HabitNameStyles.habitNameForm}>
-                <input
-                    className="habit-name-input"
-                    value={inputState[habit.id - 1]}
-                    onChange={e => handleHabitNameOnChange(e, habit)}
-                ></input>
+        <ClickAwayListener onClickAway={onClickAway}>
+            <td onClick={() => setEditingMode(true)}>
+                <form className={HabitNameStyles.habitNameForm}>
+                    <input
+                        className="habit-name-input"
+                        value={inputState}
+                        onChange={(e) => setInputState(e.target.value)}
+                    ></input>
 
-                <div className={cn(HabitNameStyles.habitNameButtons)}>
-                    {editingMode[habit.id - 1] ? icons : null}
-                </div>
-            </form>
-        </td>
+                    <div className={cn(HabitNameStyles.habitNameButtons)}>
+                        {editingMode && icons}
+                    </div>
+                </form>
+            </td>
+        </ClickAwayListener>
     );
 };
 
