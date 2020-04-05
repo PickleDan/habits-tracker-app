@@ -1,0 +1,26 @@
+footer {
+    height: 60px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.icons {
+    width: 210px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.icon {
+    color: #fff;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+        color: #eece1a;
+    }
+}
+
+.copyright {
+    color: #fff;
+    padding-top: 10px;
+}
