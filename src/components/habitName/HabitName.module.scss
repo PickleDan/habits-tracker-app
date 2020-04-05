@@ -19,14 +19,16 @@
 }
 .habitNameIconCheck {
     color: $green-mark-color;
-    z-index: 5;
 }
 .deleteHabit {
     color: $green-mark-color;
-    z-index: 5;
     position: absolute;
     left: 0;
     bottom: 0;
     color: #ff90b3;
+    transition: 0.1s ease-in-out;
     cursor: pointer;
+    &:hover {
+        color: red;
+    }
 }

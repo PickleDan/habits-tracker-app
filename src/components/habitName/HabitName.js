@@ -4,7 +4,7 @@ import { faTimes, faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
 import HabitNameStyles from "./HabitName.module.scss";
 import { ClickAwayListener } from "@material-ui/core";
 import cn from "classnames";
-const HabitName = ({ habit, handleAcceptIcon }) => {
+const HabitName = ({ habit, handleAcceptIcon, onDeleteHabit }) => {
     const onClickAway = () => {
         setEditingMode(false);
     };
@@ -25,11 +25,12 @@ const HabitName = ({ habit, handleAcceptIcon }) => {
             />
         </>
     );
-
+    console.log(habit);
     const deleteHabit = (
         <FontAwesomeIcon
             className={HabitNameStyles.deleteHabit}
             icon={faTrash}
+            onClick={() => onDeleteHabit(habit)}
         />
     );
 

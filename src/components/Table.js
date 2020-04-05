@@ -5,6 +5,7 @@ import { HabitStatus } from "./HabitStatus";
 import { Status } from "./HabitStatus";
 import cloneObject from "../utils/cloneObject";
 import replaceById from "../utils/replaceById";
+import deleteById from "../utils/deleteById";
 import { HabitName } from "./habitName/HabitName";
 import { HabitMeasure } from "./habitMeasure/HabitMeasure";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -36,15 +37,8 @@ const Table = ({ habits, weekDays }) => {
         6,
     ]);
 
-    const [editingNameMode, setEditingNameMode] = useState(
-        habitsState.map(() => false)
-    );
-
-    const [editingMeasureMode, setEditingMeasureMode] = useState(
-        habitsState.map(() => false)
-    );
-
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
     const initNewHabit = {
         id: habitsState.length + 1,
         name: "",
@@ -60,6 +54,11 @@ const Table = ({ habits, weekDays }) => {
         },
     };
     const [newHabitAdding, setNewHabitAdding] = useState(initNewHabit);
+
+    const [deleteModalWarning, setDeleteModalWarning] = useState({
+        isOpen: false,
+        removableHabit: {},
+    });
 
     useEffect(() => {
         setNewHabitAdding({
@@ -115,19 +114,6 @@ const Table = ({ habits, weekDays }) => {
         }
     };
 
-    const handleHabitNameOnClick = (habit) => {
-        const clonedEditingMode = [...editingNameMode];
-        clonedEditingMode[habit.id - 1] = true;
-
-        setEditingNameMode(clonedEditingMode);
-    };
-
-    const handleHabitMeasuringOnClick = (habit) => {
-        const clonedEditingMode = [...editingMeasureMode];
-        clonedEditingMode[habit.id - 1] = true;
-        setEditingMeasureMode(clonedEditingMode);
-    };
-
     const handleNameAcceptIcon = (newHabit) => {
         if (newHabit.name.length > 25 || newHabit.name.length < 3) {
             alert(
@@ -151,6 +137,25 @@ const Table = ({ habits, weekDays }) => {
             setHabitsState(updatedHabits);
             alert("Вы успешно сохранили меру привычки!");
         }
+    };
+
+    const handleTrashIcon = (removableHabit) =>
+        setDeleteModalWarning({
+            ...deleteModalWarning,
+            removableHabit,
+            isOpen: true,
+        });
+
+    const deleteHabit = () => {
+        const newHabitsState = deleteById(
+            habitsState,
+            deleteModalWarning.removableHabit
+        );
+        setHabitsState(newHabitsState);
+        setDeleteModalWarning({
+            ...deleteModalWarning,
+            isOpen: false,
+        });
     };
 
     const handlePlusIconClick = () => setModalIsOpen(true);
@@ -188,10 +193,8 @@ const Table = ({ habits, weekDays }) => {
             <HabitName
                 key={habit.id}
                 habit={habit}
-                handleHabitNameOnClick={handleHabitNameOnClick}
-                editingMode={editingNameMode}
-                habitsState={habitsState}
                 handleAcceptIcon={handleNameAcceptIcon}
+                onDeleteHabit={handleTrashIcon}
             />
         );
     });
@@ -200,8 +203,6 @@ const Table = ({ habits, weekDays }) => {
         <HabitMeasure
             key={habit.id}
             habit={habit}
-            handleHabitMeasuringOnClick={handleHabitMeasuringOnClick}
-            editingMode={editingMeasureMode}
             handleAcceptIcon={handleMeasureAcceptIcon}
         />
     ));
@@ -222,6 +223,32 @@ const Table = ({ habits, weekDays }) => {
     Modal.setAppElement("#root");
     return (
         <Container fluid className="table-wrapper">
+            <Modal
+                isOpen={deleteModalWarning.isOpen}
+                onRequestClose={() =>
+                    setDeleteModalWarning({
+                        ...deleteModalWarning,
+                        isOpen: false,
+                    })
+                }
+                style={customModalStyles}
+            >
+                <p className="modal-alert">Вы точно хотите удалить привычку?</p>
+                <div className="modal-buttons">
+                    <button
+                        onClick={() =>
+                            setDeleteModalWarning({
+                                ...deleteModalWarning,
+                                isOpen: false,
+                            })
+                        }
+                    >
+                        Отменить
+                    </button>
+                    <button onClick={deleteHabit}>Удалить</button>
+                </div>
+            </Modal>
+
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
