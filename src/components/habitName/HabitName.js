@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
 import HabitNameStyles from "./HabitName.module.scss";
 import { ClickAwayListener } from "@material-ui/core";
 import cn from "classnames";
@@ -26,10 +26,18 @@ const HabitName = ({ habit, handleAcceptIcon }) => {
         </>
     );
 
+    const deleteHabit = (
+        <FontAwesomeIcon
+            className={HabitNameStyles.deleteHabit}
+            icon={faTrash}
+        />
+    );
+
     return (
         <ClickAwayListener onClickAway={onClickAway}>
             <th onClick={() => setEditingMode(true)}>
                 <form className={HabitNameStyles.habitNameForm}>
+                    {editingMode && deleteHabit}
                     <input
                         className="habit-name-input"
                         value={inputState}
