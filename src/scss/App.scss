@@ -10,7 +10,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 button {
     padding: 0;
-    border: none;
     font: inherit;
     color: inherit;
     background-color: transparent;
@@ -21,11 +20,18 @@ button {
 .table-wrapper {
     position: relative;
     max-width: 1400px;
-    margin-top: 60px;
+    margin-top: 90px;
     margin-bottom: 60px;
     table {
         background: $background-table-color;
         padding: 0 100px;
+        border-radius: 20px;
+    }
+    tr {
+        border-bottom: 1px solid #dee2e6 !important;
+        &:last-child{
+            border-bottom: none !important;
+        }
     }
     td {
         padding: 0;
@@ -33,9 +39,15 @@ button {
         vertical-align: middle;
     }
     th {
+        border: none;
+        font-weight: normal;
         vertical-align: middle !important;
         text-align: center;
     }
+    .thStyle{
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
     .status-cell {
         .habit-status-container {
             width: 100%;
@@ -44,8 +56,8 @@ button {
             position: relative;
         }
         %mark {
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             position: absolute;
             top: 50%;

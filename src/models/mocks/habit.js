@@ -21,7 +21,19 @@ const READING_HABIT = Habit.createHabit({
         SUNDAY: { status: Status.NOT_SPECIFIED }
     }
 });
-
+// {
+//     "name": "Отслеживание привычек",
+//     "description": {
+//     "measuringValue": "Каждый день",
+//         "stats": {
+//         "MONDAY": "DONE",
+//             "TUESDAY": "DONE",
+//             "WEDNESDAY": "DONE",
+//             "THURSDAY": "DONE",
+//             "FRIDAY": "DONE"
+//     }
+//   }
+// }
 const GYM_HABIT = Habit.createHabit({
     id: 2,
     name: "Спортзал",

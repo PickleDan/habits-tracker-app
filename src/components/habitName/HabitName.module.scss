@@ -21,7 +21,6 @@
     color: $green-mark-color;
 }
 .deleteHabit {
-    color: $green-mark-color;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -31,4 +30,9 @@
     &:hover {
         color: red;
     }
+}
+.nameTh{
+    border-left: 1px solid #dee2e6 !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    border-right: 1px solid #dee2e6 !important;
 }

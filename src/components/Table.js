@@ -11,7 +11,8 @@ import { HabitMeasure } from "./habitMeasure/HabitMeasure";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
-import { Container } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
+
 
 moment.locale("ru");
 
@@ -24,7 +25,7 @@ const dayNumberToDayName = {
     5: "SATURDAY",
     6: "SUNDAY",
 };
-const Table = ({ habits, weekDays }) => {
+const MainTable = ({ habits, weekDays }) => {
     const [habitsState, setHabitsState] = useState(habits);
 
     const [inputDayPotentialState, setInputDayPotentialState] = useState([
@@ -127,7 +128,6 @@ const Table = ({ habits, weekDays }) => {
     };
 
     const handleMeasureAcceptIcon = (newHabit) => {
-        console.log("new habbit is come", newHabit);
         if (newHabit.measure.length > 25 || newHabit.measure.length < 3) {
             alert(
                 "Вы ввели недопустимое значение, количество символов не должно превышать 25 и быть меньше 3. Ваши данные НЕ сохранятся."
@@ -217,7 +217,7 @@ const Table = ({ habits, weekDays }) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
+            borderRadius: "20px",
         },
     };
     Modal.setAppElement("#root");
@@ -268,7 +268,7 @@ const Table = ({ habits, weekDays }) => {
                             <input
                                 onChange={(e) => onChangeHabitMeasureModal(e)}
                                 placeholder="Введите норму привычки"
-                            ></input>
+                            />
                         </div>
                     </div>
                     <div className="modal-buttons">
@@ -287,20 +287,20 @@ const Table = ({ habits, weekDays }) => {
                 icon={faPlusCircle}
                 className="plusIcon"
             />
-            <table className="table table-bordered">
+            <Table striped bordered responsive>
                 <thead>
                     <tr>
-                        <th>Навык</th>
+                        <th className="thStyle">Навык</th>
 
                         {listOfHabitsNames}
 
-                        <td>Потенциал дня</td>
+                        <th className="thStyle">Потенциал дня</th>
                     </tr>
 
                     <tr>
-                        <th>Норма</th>
+                        <th className="thStyle">Норма</th>
                         {listOfMeasureValue}
-                        <th>1...10</th>
+                        <th className="thStyle">1...10</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -322,7 +322,7 @@ const Table = ({ habits, weekDays }) => {
                                     />
                                 </td>
                             ))}
-                            <td>
+                            <th>
                                 <input
                                     type="number"
                                     className="day-patential-input"
@@ -335,14 +335,14 @@ const Table = ({ habits, weekDays }) => {
                                             dayOrderNumber
                                         )
                                     }
-                                ></input>
-                            </td>
+                                />
+                            </th>
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </Table>
         </Container>
     );
 };
 
-export default Table;
+export default MainTable;

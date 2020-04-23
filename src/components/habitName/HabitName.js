@@ -36,14 +36,14 @@ const HabitName = ({ habit, handleAcceptIcon, onDeleteHabit }) => {
 
     return (
         <ClickAwayListener onClickAway={onClickAway}>
-            <th onClick={() => setEditingMode(true)}>
+            <th className={HabitNameStyles.nameTh} onClick={() => setEditingMode(true)}>
                 <form className={HabitNameStyles.habitNameForm}>
                     {editingMode && deleteHabit}
                     <input
                         className="habit-name-input"
                         value={inputState}
                         onChange={(e) => setInputState(e.target.value)}
-                    ></input>
+                    />
 
                     <div className={cn(HabitNameStyles.habitNameButtons)}>
                         {editingMode && icons}
