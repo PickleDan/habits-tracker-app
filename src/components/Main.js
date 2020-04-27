@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "./header/Header";
+import { Header } from "./Header/Header";
 import MainTable from "./Table";
-import { Footer } from "../components/footer/Footer";
+import { Footer } from "./Footer/Footer";
 
 export const Main = ({ habits, weekDays }) => {
     return (
