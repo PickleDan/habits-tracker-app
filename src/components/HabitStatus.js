@@ -20,14 +20,25 @@ const habitStatusComponents = {
 const getHabitStatusComponent = status =>
   habitStatusComponents[status] || habitStatusComponents[Status.NOT_SPECIFIED];
 
-const HabitStatus = ({ habitStatus, onClick }) => {
+const HabitStatus = ({
+  habit,
+  dayOrderNumber,
+  onClickCell,
+  onDoubleClickCell,
+  onClickCombination
+}) => {
+  const { status: habitStatus } = habit.stats[dayOrderNumber];
   const StatusComponent = getHabitStatusComponent(habitStatus);
 
   return (
-    <div className="habit-status-container">
+    <div
+      onClick={e => onClickCell(habit, dayOrderNumber, e)}
+      onDoubleClick={() => onDoubleClickCell(habit, dayOrderNumber)}
+      className="habit-status-container"
+    >
       <StatusComponent />
     </div>
   );
 };
 
-export default HabitStatus;
+export { HabitStatus, Status };
