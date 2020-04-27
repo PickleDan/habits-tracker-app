@@ -33,21 +33,25 @@ export default class Table extends React.Component {
 
   render() {
     const { habits } = this.state;
-    const listOfHabitsNames = habits.map(habit => (
-      <td key={habit.id}>{habit.name}</td>
-    ));
 
-    const listOfMeasureValue = habits.map(habit => (
-      <td key={habit.id}>{habit.measuringValue}</td>
-    ));
-
-    const greenAndNeutralMarksHandler = (habit, dayName, dayPotential, e) => {
+    const oneClickCellHandler = (habit, dayName, dayPotential, e) => {
       const updatedHabit = cloneObject(habit);
-      if (e.ctrlKey) {
-        updatedHabit.stats[dayName] = { status: Status.NEUTRAL, dayPotential };
-      } else {
+      if (e.type === "click") {
+        if (e.ctrlKey) {
+          updatedHabit.stats[dayName] = {
+            status: Status.NEUTRAL,
+            dayPotential
+          };
+        } else {
+          updatedHabit.stats[dayName] = {
+            status: Status.DONE,
+            dayPotential
+          };
+        }
+      } else if (e.type === "contextmenu") {
+        e.preventDefault();
         updatedHabit.stats[dayName] = {
-          status: Status.DONE,
+          status: Status.NOT_SPECIFIED,
           dayPotential
         };
       }
@@ -58,10 +62,9 @@ export default class Table extends React.Component {
       this.setState({ habits: updatedHabits });
     };
 
-    const redMarkHandler = (habit, dayName, dayPotential) => {
+    const doubleClickCellHandler = (habit, dayName, dayPotential) => {
       const updatedHabit = cloneObject(habit);
       updatedHabit.stats[dayName] = { status: Status.FAILED, dayPotential };
-
       const { habits } = this.state;
       const updatedHabits = replaceById(habits, updatedHabit);
 
@@ -79,14 +82,60 @@ export default class Table extends React.Component {
         alert("Вы ввели недопустимое значение, введите число от 1 до 10");
       } else {
         const updatedHabit = cloneObject(habitWithDayPotentialData);
-
         updatedHabit.stats[dayName].dayPotential = inputValue;
 
+        const { habits } = this.state;
         const updatedHabits = replaceById(habits, updatedHabit);
 
         this.setState({ habits: updatedHabits });
       }
     };
+
+    const inputHabitNameHandler = (e, habit) => {
+      const updatedHabit = cloneObject(habit);
+      updatedHabit.name = e.target.value;
+
+      const { habits } = this.state;
+      const updatedHabits = replaceById(habits, updatedHabit);
+
+      this.setState({ habits: updatedHabits });
+    };
+
+    const inputHabitNameOnEnterPress = e => {
+      const inputValue = e.target.value;
+      if (inputValue.length > 25) {
+        alert(
+          "Вы ввели недопустимое количество символов, количество символов должно быть меньше 25"
+        );
+      }
+      if (e.key === "Enter") {
+        if (inputValue.length === 0) {
+          alert("Вы ничего не ввели");
+        } else {
+          e.target.blur();
+        }
+      }
+    };
+
+    const blurInputOnEnterPress = e => {
+      if (e.key === "Enter") {
+        e.target.blur();
+      }
+    };
+    const listOfHabitsNames = habits.map(habit => (
+      <td key={habit.id}>
+        <input
+          className="habit-name-input"
+          value={habit.name}
+          onChange={e => inputHabitNameHandler(e, habit)}
+          onKeyPress={e => inputHabitNameOnEnterPress(e)}
+        ></input>
+      </td>
+    ));
+
+    const listOfMeasureValue = habits.map(habit => (
+      <td key={habit.id}>{habit.measuringValue}</td>
+    ));
 
     const { weekDays } = this.props;
 
@@ -112,8 +161,8 @@ export default class Table extends React.Component {
                 {habits.map(habit => (
                   <td key={habit.id}>
                     <HabitStatus
-                      onClickCell={greenAndNeutralMarksHandler}
-                      onDoubleClickCell={redMarkHandler}
+                      onClickCell={oneClickCellHandler}
+                      onDoubleClickCell={doubleClickCellHandler}
                       dayOrderNumber={dayOrderNumber}
                       dayName={dayNumberToDayName[dayOrderNumber]}
                       habit={habit}
@@ -135,6 +184,7 @@ export default class Table extends React.Component {
                         dayNumberToDayName[dayOrderNumber]
                       )
                     }
+                    onKeyPress={e => blurInputOnEnterPress(e)}
                   ></input>
                 </td>
               </tr>
