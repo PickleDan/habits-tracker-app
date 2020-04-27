@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cbb66675-9cf7-4fc1-9801-9eded6de5808" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/backgrounds/authBg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Auth/Auth.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Auth/Auth.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Auth/AuthContainer.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Router/Routes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/footer/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/footer/Footer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer/Footer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/habit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/habitMeasure/HabitMeasure.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HabitMeasure/HabitMeasure.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/habitMeasure/HabitMeasure.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HabitMeasure/HabitMeasure.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/habitName/HabitName.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HabitName/HabitName.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/habitName/HabitName.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HabitName/HabitName.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/App.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/index.scss" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ajRvwDnEFccyTvp1vflGDKoOUN" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/images/backgrounds" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettier.files.pattern" value="{**/*,*}.{js,ts,jsx,tsx,css,scss}" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="run.prettier.on.save" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/images" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/images/backgrounds" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cbb66675-9cf7-4fc1-9801-9eded6de5808" name="Default Changelist" comment="" />
+      <created>1587247250628</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587247250628</updated>
+      <workItem from="1587247255488" duration="1449000" />
+      <workItem from="1587459955318" duration="128000" />
+      <workItem from="1587580847222" duration="623000" />
+      <workItem from="1587666021494" duration="8285000" />
+      <workItem from="1587710844862" duration="565000" />
+      <workItem from="1587754712825" duration="4930000" />
+      <workItem from="1587759726048" duration="13202000" />
+    </task>
+    <task id="LOCAL-00001" summary="add styles to Table">
+      <created>1587674882067</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587674882067</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add styles to Table" />
+    <option name="LAST_COMMIT_MESSAGE" value="add styles to Table" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2804" y="388" width="213" height="337" key="#File_Watchers" timestamp="1587756912747">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2804" y="388" width="213" height="337" key="#File_Watchers/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587756912747" />
+    <state x="2544" y="235" width="732" height="644" key="#Inspections" timestamp="1587666131260">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2544" y="235" width="732" height="644" key="#Inspections/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587666131260" />
+    <state x="2510" y="215" width="800" height="736" key="#Intentions" timestamp="1587666104787">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2510" y="215" width="800" height="736" key="#Intentions/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587666104787" />
+    <state x="2649" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587846606757">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2649" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/60.27.1860.1053@1920.0.1920.1080" timestamp="1587846606757" />
+    <state x="2649" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587767181170" />
+    <state x="2467" y="35" width="912" height="1045" key="CommitChangelistDialog2" timestamp="1587674881831">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2467" y="35" width="912" height="1045" key="CommitChangelistDialog2/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587674881831" />
+    <state x="2550" y="327" width="722" height="460" key="EditFileWatcherDialog" timestamp="1587755358772">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2550" y="327" width="722" height="460" key="EditFileWatcherDialog/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587755358772" />
+    <state x="2749" y="270" width="419" height="485" key="FileChooserDialogImpl" timestamp="1587759491020">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2438" y="259" width="416" height="498" key="FileChooserDialogImpl/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587711407407" />
+    <state x="2749" y="270" width="419" height="485" key="FileChooserDialogImpl/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587759491020" />
+    <state width="1837" height="86" key="GridCell.Tab.0.bottom" timestamp="1587854214071">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1837" height="86" key="GridCell.Tab.0.bottom/1920.0.1920.1080/60.27.1860.1053@1920.0.1920.1080" timestamp="1587854214071" />
+    <state width="1827" height="72" key="GridCell.Tab.0.bottom/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587675070116" />
+    <state width="1825" height="215" key="GridCell.Tab.0.bottom/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587759707636" />
+    <state width="1837" height="86" key="GridCell.Tab.0.center" timestamp="1587854214071">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1837" height="86" key="GridCell.Tab.0.center/1920.0.1920.1080/60.27.1860.1053@1920.0.1920.1080" timestamp="1587854214071" />
+    <state width="1827" height="72" key="GridCell.Tab.0.center/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587675070116" />
+    <state width="1825" height="215" key="GridCell.Tab.0.center/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587759707636" />
+    <state width="1837" height="86" key="GridCell.Tab.0.left" timestamp="1587854214070">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1837" height="86" key="GridCell.Tab.0.left/1920.0.1920.1080/60.27.1860.1053@1920.0.1920.1080" timestamp="1587854214070" />
+    <state width="1827" height="72" key="GridCell.Tab.0.left/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587675070116" />
+    <state width="1825" height="215" key="GridCell.Tab.0.left/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587759707636" />
+    <state width="1837" height="86" key="GridCell.Tab.0.right" timestamp="1587854214071">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1837" height="86" key="GridCell.Tab.0.right/1920.0.1920.1080/60.27.1860.1053@1920.0.1920.1080" timestamp="1587854214071" />
+    <state width="1827" height="72" key="GridCell.Tab.0.right/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587675070116" />
+    <state width="1825" height="215" key="GridCell.Tab.0.right/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587759707636" />
+    <state x="2677" y="159" width="1022" height="737" key="SettingsEditor" timestamp="1587759697882">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2677" y="159" width="1022" height="737" key="SettingsEditor/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587248676182" />
+    <state x="2677" y="159" width="1022" height="737" key="SettingsEditor/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587759697882" />
+    <state x="2510" y="285" width="800" height="543" key="Vcs.Push.Dialog.v2" timestamp="1587674896403">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2510" y="285" width="800" height="543" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587674896403" />
+    <state x="2789" y="272" width="616" height="550" key="find.popup" timestamp="1587840888364">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2607" y="278" width="616" height="550" key="find.popup/1920.0.1920.1080/70.27.1850.1053@1920.0.1920.1080" timestamp="1587672316198" />
+    <state x="2789" y="272" width="616" height="550" key="find.popup/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1587840888364" />
+  </component>
+</project>
