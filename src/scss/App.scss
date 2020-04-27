@@ -128,17 +128,23 @@ button {
 }
 .modal-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding: 30px 10px;
     & button {
-        padding: 10px 20px;
-        margin: 0 20px;
+        width: 140px;
+        padding: 5px 30px;
+        margin: 0 10px;
         font-weight: 600;
         transition: ease-in-out 0.2s;
     }
     & button:hover {
         color: #ea7317;
     }
+}
+.modal-alert {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 18px;
 }
 
 @media (max-width: 990px) {
