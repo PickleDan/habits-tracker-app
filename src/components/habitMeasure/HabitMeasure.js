@@ -1,23 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HabitMeasureStyles from "./HabitMeasure.module.scss";
+import { ClickAwayListener } from "@material-ui/core";
 import cn from "classnames";
 
-const HabitMeasure = ({
-    habit,
-    handleHabitMeasuringOnClick,
-    editingMode,
-    handleHabitMeasureOnChange,
-    inputState,
-    handleAcceptIcon
-}) => {
+const HabitMeasure = ({ habit, handleAcceptIcon }) => {
+    const [inputState, setInputState] = useState(habit.measuringValue);
+    const [editingMode, setEditingMode] = useState(false);
+    const onClickAway = () => {
+        setEditingMode(false);
+    };
     const icons = (
         <>
             <FontAwesomeIcon
                 className={HabitMeasureStyles.habitMeasuringIconCheck}
                 icon={faCheck}
-                onClick={e => handleAcceptIcon(habit)}
+                onClick={(e) =>
+                    handleAcceptIcon({ id: habit.id, measure: inputState })
+                }
             />
             <FontAwesomeIcon
                 className={HabitMeasureStyles.habitMeasuringIconDeny}
@@ -26,19 +27,23 @@ const HabitMeasure = ({
         </>
     );
     return (
-        <td key={habit.id} onClick={() => handleHabitMeasuringOnClick(habit)}>
-            <form className={HabitMeasureStyles.habitMeasuringForm}>
-                <input
-                    className="measuring-value-input"
-                    value={inputState[habit.id - 1]}
-                    spellCheck="false"
-                    onChange={e => handleHabitMeasureOnChange(e, habit)}
-                ></input>
-                <div className={cn(HabitMeasureStyles.habitMeasuringButtons)}>
-                    {editingMode[habit.id - 1] ? icons : undefined}
-                </div>
-            </form>
-        </td>
+        <ClickAwayListener onClickAway={onClickAway}>
+            <th key={habit.id} onClick={() => setEditingMode(true)}>
+                <form className={HabitMeasureStyles.habitMeasuringForm}>
+                    <input
+                        className="measuring-value-input"
+                        value={inputState}
+                        spellCheck="false"
+                        onChange={(e) => setInputState(e.target.value)}
+                    ></input>
+                    <div
+                        className={cn(HabitMeasureStyles.habitMeasuringButtons)}
+                    >
+                        {editingMode && icons}
+                    </div>
+                </form>
+            </th>
+        </ClickAwayListener>
     );
 };
 

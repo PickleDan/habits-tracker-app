@@ -1,9 +1,8 @@
 const replaceById = (collection, replacement) =>
-  collection.map(replacable => {
-    if (replacable.id === replacement.id) {
-      return replacement;
-    }
-    return replacable;
-  });
+    collection.map((replacable) =>
+        replacable.id === replacement.id
+            ? { ...replacable, ...replacement }
+            : replacable
+    );
 
 export default replaceById;

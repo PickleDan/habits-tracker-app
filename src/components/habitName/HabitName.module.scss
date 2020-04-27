@@ -1,24 +1,27 @@
 @import "../../scss/config";
 
-.habitMeasuringForm {
+.habitNameForm {
     display: flex;
     position: relative;
 }
 
-.habitMeasuringButtons {
-    padding-right: 10px;
+.habitNameButtons {
     position: absolute;
     right: -18px;
-    bottom: -4px;
+    bottom: 3px;
+    padding-right: 10px;
     cursor: pointer;
     display: flex !important;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.habitMeasuringIconDeny {
+.habitNameIconDeny {
     color: $red-mark-color;
+    transition: 1s;
 }
-.habitMeasuringIconCheck {
+
+.habitNameIconCheck {
     color: $green-mark-color;
+    z-index: 5;
 }
