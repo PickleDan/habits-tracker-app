@@ -1,8 +1,15 @@
-const createHabit = ({ id, name, measuringValue, stats = [] }) => ({
+const createHabit = ({
   id,
   name,
   measuringValue,
-  stats
+  stats = [],
+  dayPotentialValue
+}) => ({
+  id,
+  name,
+  measuringValue,
+  stats,
+  dayPotentialValue
 });
 
 export { createHabit };
