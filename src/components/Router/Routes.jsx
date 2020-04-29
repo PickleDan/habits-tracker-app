@@ -1,19 +1,35 @@
-import { Route, BrowserRouter as Router } from 'react-router-dom'
-import React from 'react';
-import AuthContainer from "../Auth/AuthContainer";
-import {Main} from "../Main";
-import {DateUtils} from "../../utils/date";
-import moment from "moment";
-import { HABITS } from "../../models/mocks/habit";
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import AuthContainer from '../Auth/AuthContainer'
+import { Main } from '../Main'
+import PrivateRoute from './PrivateRoute'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
-const Routes = () => {
-    const weekDays = DateUtils.getWeekDays(moment());
+const Routes = ({ isLoggedIn, token }) => {
+    console.log('TOKEN IS', token)
+    useEffect(() => {
+        console.log('TOKEN WAS CHANGED')
+        if (token === '') {
+            //todo
+        }
+    }, [token])
+
+    console.log('isLoggedIn', isLoggedIn)
+
     return (
-        <Router>
-            <Route path="/auth"> <AuthContainer/> </Route>
-            <Route path="/main"> <Main habits={HABITS} weekDays={weekDays} />   </Route>
-         </Router>
-    );
-};
+        <BrowserRouter>
+            <Route path="/login" component={AuthContainer} />
+            <PrivateRoute restricted={isLoggedIn} component={Main} path="/" />
+        </BrowserRouter>
+    )
+}
 
-export default Routes;
+let mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn,
+        token: state.auth.token,
+    }
+}
+
+export default compose(connect(mapStateToProps, {}))(Routes)

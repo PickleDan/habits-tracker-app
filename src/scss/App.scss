@@ -91,9 +91,11 @@ button {
             cursor: pointer;
         }
     }
-    .day-patential-input {
+    .day-potential-input {
         @extend %input-style;
         width: 50px;
+        height: 50px;
+        border-radius: 50%;
     }
     .habit-name-input {
         @extend %input-style;
@@ -124,6 +126,10 @@ button {
     font-size: 20px;
     text-transform: uppercase;
 }
+.signup-title {
+    font-family: Roboto, sans-serif;
+    font-size: 32px;
+}
 .modal-inputs {
     display: flex;
     flex-direction: column;
@@ -135,18 +141,25 @@ button {
         padding-bottom: 10px;
     }
 }
-
 .modal-inputs-item {
     width: 100%;
-    padding: 5px 18px;
+    padding: 10px 18px;
     & input {
         width: 100%;
+        padding: 10px 15px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
     }
 }
 .modal-buttons {
     display: flex;
     justify-content: space-between;
     padding: 30px 10px;
+    .signup-button {
+        width: 300px;
+        height: 50px;
+    }
     & button {
         width: 140px;
         padding: 5px 30px;
@@ -155,7 +168,7 @@ button {
         transition: ease-in-out 0.2s;
     }
     & button:hover {
-        color: #e66465;
+        background-color: #e66465;
     }
 }
 .modal-alert {

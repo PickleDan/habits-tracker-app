@@ -1,9 +1,13 @@
-import React from "react";
-import Styles from "./Header.module.scss";
-import { Container } from "react-bootstrap";
-import cn from "classnames";
+import React from 'react'
+import Styles from './Header.module.scss'
+import { Container } from 'react-bootstrap'
+import cn from 'classnames'
 
-export const Header = () => {
+export const Header = ({ setAuthToken }) => {
+    const logOut = () => {
+        setAuthToken('')
+    }
+
     return (
         <header className={Styles.headerWrapper}>
             <Container fluid className={Styles.container}>
@@ -16,11 +20,12 @@ export const Header = () => {
                         <div className={Styles.menuItem}>Интересные статьи</div>
                     </div>
                     <div className={Styles.authBlock}>
-                        <div className={Styles.menuItem}>Выход</div>
-                        <div className={Styles.menuItem}>Регистрация</div>
+                        <div onClick={logOut} className={Styles.menuItem}>
+                            Выход
+                        </div>
                     </div>
                 </div>
             </Container>
         </header>
-    );
-};
+    )
+}

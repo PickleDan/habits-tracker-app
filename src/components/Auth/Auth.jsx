@@ -1,10 +1,24 @@
 import React, { useState } from 'react'
 import Styles from './Auth.module.scss'
 import Modal from 'react-modal'
-import { Container } from 'react-bootstrap'
-export const Auth = ({}) => {
-    // const onLoginChangeHandle = (e) => setLogin(e.target.value)
-    // const onPasswordChangeHandle = (e) => setPassword(e.target.value)
+import { Redirect } from 'react-router-dom'
+
+export const Auth = ({ setLogin, setPassword, fetchAuth, isLoggedIn }) => {
+    const onLoginChangeHandle = (e) => {
+        setLogin(e.target.value)
+    }
+
+    const onPasswordChangeHandle = (e) => {
+        e.preventDefault()
+        setPassword(e.target.value)
+    }
+
+    const onSubmitAuth = (e) => {
+        e.preventDefault()
+        console.log('REQUEST')
+        fetchAuth()
+    }
+
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     const handleRegistrationBtn = (e) => {
@@ -14,6 +28,7 @@ export const Auth = ({}) => {
 
     const customModalStyles = {
         content: {
+            width: '640px',
             backgroundColor: '#508be7',
             color: '#fff',
             top: '50%',
@@ -25,41 +40,56 @@ export const Auth = ({}) => {
             borderRadius: '20px',
         },
     }
+    console.log('IS LOGGED IN', isLoggedIn)
+
     return (
         <div className={Styles.loginContainer}>
+            {isLoggedIn ? <Redirect to="/" /> : null}
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 style={customModalStyles}
             >
-                <h2 className="modal-title">Регистрация</h2>
+                <h2 className="modal-title signup-title">Регистрация</h2>
                 <form>
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">Введите email:</span>
-                            <input
-                            // onChange={(e) => onChangeHabitNameModal(e)}
-                            />
+                            <input />
+                        </div>
+
+                        <div className="modal-inputs-item">
+                            <span className="inputSignUp">Введите логин:</span>
+                            <input />
+                        </div>
+
+                        <div className="modal-inputs-item">
+                            <span className="inputSignUp">
+                                Введите ваше имя:
+                            </span>
+                            <input />
                         </div>
 
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">Введите пароль:</span>
-                            <input
-                            // onChange={(e) => onChangeHabitMeasureModal(e)}
-                            />
+                            <input />
+                        </div>
+
+                        <div className="modal-inputs-item">
+                            <span className="inputSignUp">
+                                Введите пароль еще раз:
+                            </span>
+                            <input />
                         </div>
                     </div>
                     <div className="modal-buttons">
-                        <button>Отменить</button>
-                        <button>Ок</button>
+                        <button className="signup-button">Отменить</button>
+                        <button className="signup-button">Ок</button>
                     </div>
                 </form>
             </Modal>
 
             <div className={Styles.wrapper}>
-                <div className={Styles.logoWrapper}>
-                    {/*<img alt="logo" src={logo} />*/}
-                </div>
                 <div className={Styles.frame}>
                     <h1>
                         Добро пожаловать <br />в мир привычек!
@@ -69,13 +99,12 @@ export const Auth = ({}) => {
                         Пожалуйста, авторизуйтесь
                     </p>
 
-                    <form className={Styles.auth}>
+                    <form className={Styles.auth} onSubmit={onSubmitAuth}>
                         <div className={Styles.authItem}>
                             <p className={Styles.authItemLogin}>Ваш логин</p>
                             <input
                                 type={'text'}
-                                // onChange={onLoginChangeHandle}
-
+                                onChange={onLoginChangeHandle}
                                 placeholder={'Введите логин'}
                             />
                         </div>
@@ -85,7 +114,7 @@ export const Auth = ({}) => {
                             </p>
                             <input
                                 type="password"
-                                // onChange={onPasswordChangeHandle}
+                                onChange={onPasswordChangeHandle}
                                 placeholder={'Введите пароль'}
                             />
                         </div>

@@ -1,14 +1,19 @@
-import React from "react";
-import { Header } from "./Header/Header";
-import MainTable from "./Table";
-import { Footer } from "./Footer/Footer";
+import React from 'react'
 
-export const Main = ({ habits, weekDays }) => {
+import { MainTable } from './Table'
+import { Footer } from './Footer/Footer'
+import { HABITS } from '../models/mocks/habit'
+import { DateUtils } from '../utils/date'
+import moment from 'moment'
+import HeaderContainer from './Header/HeaderContainer'
+
+export const Main = () => {
+    const weekDays = DateUtils.getWeekDays(moment())
     return (
         <>
-            <Header />
-            <MainTable habits={habits} weekDays={weekDays} />
+            <HeaderContainer />
+            <MainTable habits={HABITS} weekDays={weekDays} />
             <Footer />
         </>
-    );
-};
+    )
+}

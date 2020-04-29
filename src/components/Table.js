@@ -24,7 +24,7 @@ const dayNumberToDayName = {
     5: 'SATURDAY',
     6: 'SUNDAY',
 }
-const MainTable = ({ habits, weekDays }) => {
+export const MainTable = ({ habits, weekDays }) => {
     const [habitsState, setHabitsState] = useState(habits)
 
     const [inputDayPotentialState, setInputDayPotentialState] = useState([
@@ -257,16 +257,20 @@ const MainTable = ({ habits, weekDays }) => {
                 <form>
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
+                            <span className="inputSignUp">
+                                Введите название привычки:
+                            </span>
                             <input
                                 onChange={(e) => onChangeHabitNameModal(e)}
-                                placeholder="Введите название новой привычки"
                             />
                         </div>
 
                         <div className="modal-inputs-item">
+                            <span className="inputSignUp">
+                                Введите норму привычки:
+                            </span>
                             <input
                                 onChange={(e) => onChangeHabitMeasureModal(e)}
-                                placeholder="Введите норму привычки"
                             />
                         </div>
                     </div>
@@ -324,7 +328,7 @@ const MainTable = ({ habits, weekDays }) => {
                             <th>
                                 <input
                                     type="number"
-                                    className="day-patential-input"
+                                    className="day-potential-input"
                                     value={
                                         inputDayPotentialState[dayOrderNumber]
                                     }
@@ -343,5 +347,3 @@ const MainTable = ({ habits, weekDays }) => {
         </Container>
     )
 }
-
-export default MainTable

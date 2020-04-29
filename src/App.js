@@ -1,16 +1,15 @@
 import React from 'react'
 import './scss/App.scss'
 import { Provider } from 'react-redux'
-import { Switch } from 'react-router-dom'
-import Table from './components/Table'
-import { HABITS } from './models/mocks/habit'
-import { DateUtils } from './utils/date'
-import moment from 'moment'
-import { Main } from './components/Main'
 import Routes from './components/Router/Routes'
+import store from './redux/reduxStore'
 
 function App() {
-    return <Routes />
+    return (
+        <Provider store={store}>
+            <Routes />
+        </Provider>
+    )
 }
 
 export default App
