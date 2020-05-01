@@ -7,16 +7,6 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 
 const Routes = ({ isLoggedIn, token }) => {
-    console.log('TOKEN IS', token)
-    useEffect(() => {
-        console.log('TOKEN WAS CHANGED')
-        if (token === '') {
-            //todo
-        }
-    }, [token])
-
-    console.log('isLoggedIn', isLoggedIn)
-
     return (
         <BrowserRouter>
             <Route path="/login" component={AuthContainer} />

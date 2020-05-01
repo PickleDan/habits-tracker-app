@@ -3,9 +3,10 @@ import Styles from './Header.module.scss'
 import { Container } from 'react-bootstrap'
 import cn from 'classnames'
 
-export const Header = ({ setAuthToken }) => {
+export const Header = ({ setAuthToken, setLoggedIn }) => {
     const logOut = () => {
         setAuthToken('')
+        setLoggedIn(false)
     }
 
     return (

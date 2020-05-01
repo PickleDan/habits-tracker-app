@@ -1,22 +1,56 @@
 import React, { useState } from 'react'
 import Styles from './Auth.module.scss'
 import Modal from 'react-modal'
+import cn from 'classnames'
 import { Redirect } from 'react-router-dom'
+import {
+    setLoginError,
+    setMailError,
+    setPasswordError,
+} from '../../redux/signUp/signUpActions'
 
-export const Auth = ({ setLogin, setPassword, fetchAuth, isLoggedIn }) => {
+export const Auth = ({
+    setLogin,
+    setPassword,
+    setIsError,
+    mailError,
+    loginError,
+    passwordError,
+    success,
+    fetchAuth,
+    fetchSignUp,
+    isLoggedIn,
+    isError,
+    setMail,
+    setLoginSignUp,
+    setName,
+    setPasswordFirstTime,
+    setPasswordSecondTime,
+    setMailError,
+    setLoginError,
+    setPasswordError,
+}) => {
     const onLoginChangeHandle = (e) => {
         setLogin(e.target.value)
+        setIsError(false)
     }
 
     const onPasswordChangeHandle = (e) => {
-        e.preventDefault()
         setPassword(e.target.value)
+        setIsError(false)
     }
 
     const onSubmitAuth = (e) => {
         e.preventDefault()
         console.log('REQUEST')
         fetchAuth()
+    }
+
+    const onSubmitSignUp = (e) => {
+        e.preventDefault()
+        console.log('REGISTRY')
+        fetchSignUp()
+        //todo
     }
 
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -28,7 +62,7 @@ export const Auth = ({ setLogin, setPassword, fetchAuth, isLoggedIn }) => {
 
     const customModalStyles = {
         content: {
-            width: '640px',
+            width: '500px',
             backgroundColor: '#508be7',
             color: '#fff',
             top: '50%',
@@ -38,9 +72,10 @@ export const Auth = ({ setLogin, setPassword, fetchAuth, isLoggedIn }) => {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             borderRadius: '20px',
+            padding: '20px 40px',
         },
     }
-    console.log('IS LOGGED IN', isLoggedIn)
+    console.log('111', success)
 
     return (
         <div className={Styles.loginContainer}>
@@ -50,41 +85,97 @@ export const Auth = ({ setLogin, setPassword, fetchAuth, isLoggedIn }) => {
                 onRequestClose={() => setModalIsOpen(false)}
                 style={customModalStyles}
             >
-                <h2 className="modal-title signup-title">Регистрация</h2>
-                <form>
+                <h2 className="modal-title sign-up-title">Регистрация</h2>
+
+                {success ? (
+                    <h6 className="sign-up-success">Вы зарегистрированы!</h6>
+                ) : null}
+
+                {mailError ? (
+                    <h6 className="sign-up-error">
+                        Ошибка: email введен некорректно или уже занят.
+                    </h6>
+                ) : null}
+
+                {loginError ? (
+                    <h6 className="sign-up-error">
+                        Ошибка: данный логин уже занят.
+                    </h6>
+                ) : null}
+
+                {passwordError ? (
+                    <h6 className="sign-up-error">
+                        Ошибка: введенные пароли не совпадают.
+                    </h6>
+                ) : null}
+
+                <form onSubmit={onSubmitSignUp}>
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">Введите email:</span>
-                            <input />
+                            <input
+                                minLength="3"
+                                onChange={(e) => {
+                                    setMailError(false)
+                                    setMail(e.target.value)
+                                }}
+                            />
                         </div>
 
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">Введите логин:</span>
-                            <input />
+                            <input
+                                minLength="3"
+                                onChange={(e) => {
+                                    setLoginError(false)
+                                    setLoginSignUp(e.target.value)
+                                }}
+                            />
                         </div>
 
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">
                                 Введите ваше имя:
                             </span>
-                            <input />
+                            <input
+                                minLength="3"
+                                onChange={(e) => setName(e.target.value)}
+                            />
                         </div>
 
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">Введите пароль:</span>
-                            <input />
+                            <input
+                                onChange={(e) => {
+                                    setPasswordError(false)
+                                    setPasswordFirstTime(e.target.value)
+                                }}
+                                minLength="6"
+                                type="password"
+                            />
                         </div>
 
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">
                                 Введите пароль еще раз:
                             </span>
-                            <input />
+                            <input
+                                onChange={(e) =>
+                                    setPasswordSecondTime(e.target.value)
+                                }
+                                minLength="6"
+                                type="password"
+                            />
                         </div>
                     </div>
                     <div className="modal-buttons">
-                        <button className="signup-button">Отменить</button>
-                        <button className="signup-button">Ок</button>
+                        <button
+                            onClick={() => setModalIsOpen(false)}
+                            className="sign-up-button"
+                        >
+                            Отменить
+                        </button>
+                        <button className="sign-up-button">Ок</button>
                     </div>
                 </form>
             </Modal>
@@ -94,10 +185,15 @@ export const Auth = ({ setLogin, setPassword, fetchAuth, isLoggedIn }) => {
                     <h1>
                         Добро пожаловать <br />в мир привычек!
                     </h1>
-
-                    <p className={Styles.AuthWarning}>
-                        Пожалуйста, авторизуйтесь
-                    </p>
+                    {!isError ? (
+                        <p className={Styles.AuthWarning}>
+                            Пожалуйста, авторизуйтесь
+                        </p>
+                    ) : (
+                        <p className={cn(Styles.AuthWarning, Styles.AuthError)}>
+                            Вы ввели неверный логин или пароль
+                        </p>
+                    )}
 
                     <form className={Styles.auth} onSubmit={onSubmitAuth}>
                         <div className={Styles.authItem}>

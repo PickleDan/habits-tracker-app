@@ -1,5 +1,4 @@
 import { reduxTypes } from '../../constants'
-import { checkToken } from '../../utils/checkToken'
 
 const initialState = {
     login: '',

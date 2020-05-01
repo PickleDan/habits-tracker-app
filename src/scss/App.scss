@@ -120,16 +120,28 @@ button {
     }
 }
 .modal-title {
-    padding: 20px;
-    padding-bottom: 32px;
+    padding: 20px 20px 32px;
     text-align: center;
     font-size: 20px;
     text-transform: uppercase;
 }
-.signup-title {
+.sign-up-title {
     font-family: Roboto, sans-serif;
     font-size: 32px;
 }
+.sign-up-success {
+    text-align: center;
+    color: #35ff69;
+    font-size: 18px;
+    transition: 0.5s;
+}
+.sign-up-error {
+    text-align: center;
+    color: #ecc30b;
+    font-size: 16px;
+    transition: 1s;
+}
+
 .modal-inputs {
     display: flex;
     flex-direction: column;
@@ -143,10 +155,14 @@ button {
 }
 .modal-inputs-item {
     width: 100%;
-    padding: 10px 18px;
+    padding: 10px 20px;
+    &:first-child {
+        padding-top: 30px;
+    }
+
     & input {
         width: 100%;
-        padding: 10px 15px;
+        padding: 6px 15px;
         border-radius: 30px;
         border: none;
         outline: none;
@@ -156,9 +172,9 @@ button {
     display: flex;
     justify-content: space-between;
     padding: 30px 10px;
-    .signup-button {
+    .sign-up-button {
         width: 300px;
-        height: 50px;
+        height: 38px;
     }
     & button {
         width: 140px;
