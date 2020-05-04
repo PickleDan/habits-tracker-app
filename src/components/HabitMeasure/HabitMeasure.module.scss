@@ -1,0 +1,29 @@
+@import "../../scss/config";
+
+.habitMeasuringForm {
+    display: flex;
+    position: relative;
+}
+
+.habitMeasuringButtons {
+    padding-right: 10px;
+    position: absolute;
+    right: -10px;
+    bottom: -12px;
+    width: 20px;
+    cursor: pointer;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.habitMeasuringIconDeny {
+    color: $red-mark-color;
+    margin: 5px 0;
+}
+.habitMeasuringIconCheck {
+    color: $green-mark-color;
+}
+.measureTh{
+    border: 1px solid #dee2e6 !important;
+}

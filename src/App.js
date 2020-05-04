@@ -1,13 +1,15 @@
-import React from "react";
-import "./App.scss";
-import Table from "./components/Table";
-import { HABITS } from "./models/mocks/habit";
-import { DateUtils } from "./utils/date";
-import moment from "moment";
+import React from 'react'
+import './scss/App.scss'
+import { Provider } from 'react-redux'
+import Routes from './components/Router/Routes'
+import store from './redux/reduxStore'
 
 function App() {
-  const weekDays = DateUtils.getWeekDays(moment());
-  return <Table habits={HABITS} weekDays={weekDays} />;
+    return (
+        <Provider store={store}>
+            <Routes />
+        </Provider>
+    )
 }
 
-export default App;
+export default App

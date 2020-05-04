@@ -1,0 +1,203 @@
+@import 'config';
+
+//Remove arrows from inputs of type number
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+button {
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 8px;
+}
+.table-wrapper {
+    position: relative;
+    max-width: 1400px;
+    margin-top: 90px;
+    margin-bottom: 60px;
+    table {
+        background: $background-table-color;
+        padding: 0 100px;
+        border-radius: 20px;
+    }
+    tr {
+        border-bottom: 1px solid #dee2e6 !important;
+        &:last-child {
+            border-bottom: none !important;
+        }
+    }
+    td {
+        padding: 0;
+        text-align: center;
+        vertical-align: middle;
+    }
+    th {
+        border: none;
+        font-weight: normal;
+        vertical-align: middle !important;
+        text-align: center;
+    }
+    .thStyle {
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
+    .status-cell {
+        .habit-status-container {
+            width: 100%;
+            height: 72px;
+            cursor: pointer;
+            position: relative;
+        }
+        %mark {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .green-mark {
+            @extend %mark;
+            background: $green-mark-color;
+        }
+        .red-mark {
+            @extend %mark;
+            background: $red-mark-color;
+        }
+        .neutral-mark {
+            @extend %mark;
+            background: $neutral-mark-color;
+        }
+    }
+
+    %input-style {
+        margin: 0;
+        border: 0;
+        // border-bottom: 1px solid $input-border-color;
+        text-align: center;
+        background-color: $background-table-color;
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .day-potential-input {
+        @extend %input-style;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .habit-name-input {
+        @extend %input-style;
+        width: 100%;
+        height: 40px;
+    }
+    .measuring-value-input {
+        @extend %input-style;
+        width: 100%;
+        height: 40px;
+    }
+    .plusIcon {
+        position: absolute;
+        width: 28px;
+        right: -1px;
+        top: -19px;
+        cursor: pointer;
+        color: $plus-icon-color;
+        transition: 0.2s;
+        &:hover {
+            color: lighten($plus-icon-color, $amount: 10%);
+        }
+    }
+}
+.modal-title {
+    padding: 20px 20px 32px;
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.sign-up-title {
+    font-family: Roboto, sans-serif;
+    font-size: 32px;
+}
+.sign-up-success {
+    text-align: center;
+    color: #35ff69;
+    font-size: 18px;
+    transition: 0.5s;
+}
+.sign-up-error {
+    text-align: center;
+    color: #ecc30b;
+    font-size: 16px;
+    transition: 1s;
+}
+
+.modal-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    .inputSignUp {
+        display: block;
+        padding-bottom: 10px;
+    }
+}
+.modal-inputs-item {
+    width: 100%;
+    padding: 10px 20px;
+    &:first-child {
+        padding-top: 30px;
+    }
+
+    & input {
+        width: 100%;
+        padding: 6px 15px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+    }
+}
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 10px;
+    .sign-up-button {
+        width: 300px;
+        height: 38px;
+    }
+    & button {
+        width: 140px;
+        padding: 5px 30px;
+        margin: 0 10px;
+        font-weight: 600;
+        transition: ease-in-out 0.2s;
+    }
+    & button:hover {
+        background-color: #e66465;
+    }
+}
+.modal-alert {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 18px;
+}
+
+@media (max-width: 990px) {
+    .status-cell {
+        .habit-status-container {
+            height: 72px !important;
+        }
+    }
+}
