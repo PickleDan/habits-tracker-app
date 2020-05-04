@@ -1,4 +1,4 @@
-@import "../../scss/config";
+@import '../../../scss/config';
 
 .habitNameForm {
     display: flex;
@@ -31,7 +31,7 @@
         color: red;
     }
 }
-.nameTh{
+.nameTh {
     border-left: 1px solid #dee2e6 !important;
     border-bottom: 1px solid #dee2e6 !important;
     border-right: 1px solid #dee2e6 !important;

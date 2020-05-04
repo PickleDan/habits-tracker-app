@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { HabitStatus } from '../HabitStatus'
-import { Status } from '../HabitStatus'
+import { HabitStatus } from './HabitsStatus/HabitStatus'
+import { Status } from './HabitsStatus/HabitStatus'
 import cloneObject from '../../utils/cloneObject'
 import replaceById from '../../utils/replaceById'
 import deleteById from '../../utils/deleteById'
-import { HabitName } from '../HabitName/HabitName'
-import { HabitMeasure } from '../HabitMeasure/HabitMeasure'
+import { HabitName } from './HabitName/HabitName'
+import { HabitMeasure } from './HabitMeasure/HabitMeasure'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modal from 'react-modal'
 import { Container, Table } from 'react-bootstrap'
+import StatRowContainer from './StatRow/StatRowContainer'
 
 moment.locale('ru')
 
@@ -24,15 +25,10 @@ const dayNumberToDayName = {
     5: 'SATURDAY',
     6: 'SUNDAY',
 }
-export const MainTable = ({
-    habits,
-    habitsData,
-    weekDays,
-    token,
-    fetchHabits,
-}) => {
+export const MainTable = ({ habits, weekDays, habitsData }) => {
+    console.log('WEEKDAYS', weekDays)
     const [habitsState, setHabitsState] = useState(habits)
-
+    console.log('HABITS DATA IN MAIN TABLE ', habitsData)
     const [inputDayPotentialState, setInputDayPotentialState] = useState([
         4,
         6,
@@ -196,7 +192,7 @@ export const MainTable = ({
         e.preventDefault()
     }
 
-    const listOfHabitsNames = habitsState.map((habit) => {
+    const listOfHabitsNames = habitsData.habits.map((habit) => {
         return (
             <HabitName
                 key={habit.id}
@@ -207,7 +203,7 @@ export const MainTable = ({
         )
     })
 
-    const listOfMeasureValue = habitsState.map((habit) => (
+    const listOfMeasureValue = habitsData.habits.map((habit) => (
         <HabitMeasure
             key={habit.id}
             habit={habit}
@@ -230,13 +226,6 @@ export const MainTable = ({
     }
     Modal.setAppElement('#root')
 
-    fetchHabits({
-        dateFrom: '2020-02-27',
-        dateTo: '2020-06-03',
-        page: 1,
-        perPage: 10,
-        token,
-    })
     return (
         <Container fluid className="table-wrapper">
             <Modal
@@ -327,39 +316,10 @@ export const MainTable = ({
                 </thead>
                 <tbody>
                     {weekDays.map((day, dayOrderNumber) => (
-                        <tr className="status-cell" key={day.toString()}>
-                            <th scope="row">{day.format('DD.MM')}</th>
-                            {habitsState.map((habit) => (
-                                <td key={habit.id}>
-                                    <HabitStatus
-                                        onClickCell={oneClickCellHandler}
-                                        onDoubleClickCell={
-                                            doubleClickCellHandler
-                                        }
-                                        dayOrderNumber={dayOrderNumber}
-                                        dayName={
-                                            dayNumberToDayName[dayOrderNumber]
-                                        }
-                                        habit={habit}
-                                    />
-                                </td>
-                            ))}
-                            <th>
-                                <input
-                                    type="number"
-                                    className="day-potential-input"
-                                    value={
-                                        inputDayPotentialState[dayOrderNumber]
-                                    }
-                                    onChange={(e) =>
-                                        inputDayPotentialHandler(
-                                            e,
-                                            dayOrderNumber
-                                        )
-                                    }
-                                />
-                            </th>
-                        </tr>
+                        <StatRowContainer
+                            day={day}
+                            dayOrderNumber={dayOrderNumber}
+                        />
                     ))}
                 </tbody>
             </Table>

@@ -2,7 +2,7 @@ import { reduxTypes } from '../../constants'
 
 const initialState = {
     day_potential: [],
-    habits: {},
+    habits: [],
 }
 
 export const habitsReducer = (state = initialState, action) => {

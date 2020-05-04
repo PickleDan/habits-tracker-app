@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import HabitMeasureStyles from "./HabitMeasure.module.scss";
-import { ClickAwayListener } from "@material-ui/core";
-import cn from "classnames";
+import React, { useState } from 'react'
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HabitMeasureStyles from './HabitMeasure.module.scss'
+import { ClickAwayListener } from '@material-ui/core'
+import cn from 'classnames'
 
 const HabitMeasure = ({ habit, handleAcceptIcon }) => {
-    const [inputState, setInputState] = useState(habit.measuringValue);
-    const [editingMode, setEditingMode] = useState(false);
+    const [inputState, setInputState] = useState(habit.description)
+    const [editingMode, setEditingMode] = useState(false)
     const onClickAway = () => {
-        setEditingMode(false);
-    };
+        setEditingMode(false)
+    }
     const icons = (
         <>
             <FontAwesomeIcon
@@ -25,10 +25,14 @@ const HabitMeasure = ({ habit, handleAcceptIcon }) => {
                 icon={faTimes}
             />
         </>
-    );
+    )
     return (
         <ClickAwayListener onClickAway={onClickAway}>
-            <th className={HabitMeasureStyles.measureTh} key={habit.id} onClick={() => setEditingMode(true)}>
+            <th
+                className={HabitMeasureStyles.measureTh}
+                key={habit.id}
+                onClick={() => setEditingMode(true)}
+            >
                 <form className={HabitMeasureStyles.habitMeasuringForm}>
                     <input
                         className="measuring-value-input"
@@ -44,7 +48,7 @@ const HabitMeasure = ({ habit, handleAcceptIcon }) => {
                 </form>
             </th>
         </ClickAwayListener>
-    );
-};
+    )
+}
 
-export { HabitMeasure, HabitMeasureStyles };
+export { HabitMeasure, HabitMeasureStyles }

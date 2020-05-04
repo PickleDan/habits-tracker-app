@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
 }
 
 const HeaderContainer = (props) => {
-    console.log('PROPS', props)
     return <Header {...props} />
 }
 
