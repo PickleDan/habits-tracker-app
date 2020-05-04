@@ -29,8 +29,10 @@ export const fetchSignUp = () => {
                 dispatch(setSuccess())
             }
             if (result.status === 422) {
-                // console.log('TEST', signUpInfo.email[0])
-                if (signUpInfo.email[0] === 'invalid email format') {
+                if (
+                    signUpInfo.email[0] === 'invalid email format' ||
+                    signUpInfo.email[0] === 'is already taken'
+                ) {
                     dispatch(setMailError(true))
                 }
                 if (signUpInfo.login[0] === 'is already taken') {

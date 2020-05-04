@@ -88,12 +88,14 @@ export const Auth = ({
                 <h2 className="modal-title sign-up-title">Регистрация</h2>
 
                 {success ? (
-                    <h6 className="sign-up-success">Вы зарегистрированы!</h6>
+                    <h6 className="sign-up-success">
+                        Вы успешно зарегистрированы!
+                    </h6>
                 ) : null}
 
                 {mailError ? (
                     <h6 className="sign-up-error">
-                        Ошибка: email введен некорректно или уже занят.
+                        Ошибка: данный email уже используется.
                     </h6>
                 ) : null}
 
@@ -114,6 +116,7 @@ export const Auth = ({
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">Введите email:</span>
                             <input
+                                type="email"
                                 minLength="3"
                                 onChange={(e) => {
                                     setMailError(false)
@@ -170,7 +173,10 @@ export const Auth = ({
                     </div>
                     <div className="modal-buttons">
                         <button
-                            onClick={() => setModalIsOpen(false)}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                setModalIsOpen(false)
+                            }}
                             className="sign-up-button"
                         >
                             Отменить

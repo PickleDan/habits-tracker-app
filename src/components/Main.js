@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MainTable } from './Table'
+import MainTableContainer from './Table/MainTableContainer'
 import { Footer } from './Footer/Footer'
 import { HABITS } from '../models/mocks/habit'
 import { DateUtils } from '../utils/date'
@@ -12,7 +12,7 @@ export const Main = () => {
     return (
         <>
             <HeaderContainer />
-            <MainTable habits={HABITS} weekDays={weekDays} />
+            <MainTableContainer habits={HABITS} weekDays={weekDays} />
             <Footer />
         </>
     )

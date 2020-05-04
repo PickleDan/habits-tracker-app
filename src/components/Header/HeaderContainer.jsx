@@ -4,7 +4,11 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { setAuthToken, setLoggedIn } from '../../redux/auth/authActions'
 
-const mapStateToProps = (state) => {}
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token,
+    }
+}
 
 const HeaderContainer = (props) => {
     console.log('PROPS', props)

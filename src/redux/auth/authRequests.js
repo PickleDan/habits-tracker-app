@@ -8,7 +8,7 @@ export const fetchAuth = () => {
             const result = await fetchAuthApi(login, password)
             if (result.status === 200) {
                 const token = await result.json()
-                dispatch(setAuthToken(token.auth_token))
+                dispatch(setAuthToken(token.token))
                 dispatch(setLoggedIn(true))
             } else {
                 dispatch(setIsError(true))

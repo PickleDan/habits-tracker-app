@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { HabitStatus } from './HabitStatus'
-import { Status } from './HabitStatus'
-import cloneObject from '../utils/cloneObject'
-import replaceById from '../utils/replaceById'
-import deleteById from '../utils/deleteById'
-import { HabitName } from './HabitName/HabitName'
-import { HabitMeasure } from './HabitMeasure/HabitMeasure'
+import { HabitStatus } from '../HabitStatus'
+import { Status } from '../HabitStatus'
+import cloneObject from '../../utils/cloneObject'
+import replaceById from '../../utils/replaceById'
+import deleteById from '../../utils/deleteById'
+import { HabitName } from '../HabitName/HabitName'
+import { HabitMeasure } from '../HabitMeasure/HabitMeasure'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modal from 'react-modal'
@@ -24,7 +24,13 @@ const dayNumberToDayName = {
     5: 'SATURDAY',
     6: 'SUNDAY',
 }
-export const MainTable = ({ habits, weekDays }) => {
+export const MainTable = ({
+    habits,
+    habitsData,
+    weekDays,
+    token,
+    fetchHabits,
+}) => {
     const [habitsState, setHabitsState] = useState(habits)
 
     const [inputDayPotentialState, setInputDayPotentialState] = useState([
@@ -178,7 +184,7 @@ export const MainTable = ({ habits, weekDays }) => {
         const clonedHabits = cloneObject(habitsState)
         clonedHabits.push(newHabitAdding)
         setHabitsState(clonedHabits)
-        setModalIsOpen(false)
+        // setModalIsOpen(false)
     }
 
     const onClickCancelModal = (e) => {
@@ -186,7 +192,10 @@ export const MainTable = ({ habits, weekDays }) => {
         setModalIsOpen(false)
     }
 
-    console.log({ habitsState })
+    const onSaveHabitHandle = (e) => {
+        e.preventDefault()
+    }
+
     const listOfHabitsNames = habitsState.map((habit) => {
         return (
             <HabitName
@@ -220,6 +229,14 @@ export const MainTable = ({ habits, weekDays }) => {
         },
     }
     Modal.setAppElement('#root')
+
+    fetchHabits({
+        dateFrom: '2020-02-27',
+        dateTo: '2020-06-03',
+        page: 1,
+        perPage: 10,
+        token,
+    })
     return (
         <Container fluid className="table-wrapper">
             <Modal
@@ -254,13 +271,14 @@ export const MainTable = ({ habits, weekDays }) => {
                 style={customModalStyles}
             >
                 <h2 className="modal-title">Введите данные о привычке</h2>
-                <form>
+                <form onSubmit={onSaveHabitHandle}>
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">
                                 Введите название привычки:
                             </span>
                             <input
+                                minLength="3"
                                 onChange={(e) => onChangeHabitNameModal(e)}
                             />
                         </div>
@@ -270,6 +288,7 @@ export const MainTable = ({ habits, weekDays }) => {
                                 Введите норму привычки:
                             </span>
                             <input
+                                minLength="3"
                                 onChange={(e) => onChangeHabitMeasureModal(e)}
                             />
                         </div>
