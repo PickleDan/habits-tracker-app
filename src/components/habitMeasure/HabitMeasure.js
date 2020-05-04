@@ -28,14 +28,14 @@ const HabitMeasure = ({ habit, handleAcceptIcon }) => {
     );
     return (
         <ClickAwayListener onClickAway={onClickAway}>
-            <th key={habit.id} onClick={() => setEditingMode(true)}>
+            <th className={HabitMeasureStyles.measureTh} key={habit.id} onClick={() => setEditingMode(true)}>
                 <form className={HabitMeasureStyles.habitMeasuringForm}>
                     <input
                         className="measuring-value-input"
                         value={inputState}
                         spellCheck="false"
                         onChange={(e) => setInputState(e.target.value)}
-                    ></input>
+                    />
                     <div
                         className={cn(HabitMeasureStyles.habitMeasuringButtons)}
                     >

@@ -1,0 +1,27 @@
+footer {
+    height: 100px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.icons {
+    width: 210px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.icon {
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+        color: #eece1a;
+    }
+}
+
+.copyright {
+    color: #fff;
+    padding: 10px 0;
+}
