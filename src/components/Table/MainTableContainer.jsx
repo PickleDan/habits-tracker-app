@@ -4,18 +4,24 @@ import { connect } from 'react-redux'
 import { MainTable } from './MainTable'
 import { fetchHabits } from '../../redux/habits/habitsRequests'
 
-const MainTableContainer = (props) => {
+const MainTableContainer = ({
+    habits,
+    weekDays,
+    token,
+    habitsData,
+    fetchHabits,
+}) => {
     useEffect(() => {
-        const test = props.fetchHabits({
-            dateFrom: '2020-02-27',
-            dateTo: '2020-06-27',
+        const test = fetchHabits({
+            dateFrom: weekDays[0].format('YYYY-MM-DD'),
+            dateTo: weekDays[6].format('YYYY-MM-DD'),
             page: 1,
             perPage: 20,
-            token: props.token,
+            token: token,
         })
     }, [])
 
-    return <MainTable {...props} />
+    return <MainTable {...{ habits, weekDays, habitsData }} />
 }
 
 const mapStateToProps = (state) => {

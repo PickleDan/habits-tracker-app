@@ -12,8 +12,8 @@ export const getGreetingTime = (currentTime) => {
         return 'Хорошего тебе дня.'
     } else if (currentHour >= splitEvening) {
         // Between 5PM and Midnight
-        return 'Хорошего тебе вечера.'
+        return 'Время для чашки чая.'
     }
     // Between dawn and noon
-    return 'Доброе утро.'
+    return 'Время для чашки кофе.'
 }

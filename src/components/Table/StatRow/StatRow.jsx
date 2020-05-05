@@ -1,28 +1,31 @@
 import React from 'react'
-import { HabitStatus } from '../HabitsStatus/HabitStatus'
+import HabitStatus from './HabitsStatus/HabitStatus'
 
-const StatRow = ({ day, dayOrderNumber, habitsData }) => {
+const StatRow = ({ day, habitsData }) => {
+    const dayPotentialFinder = (day, habitsData) =>
+        habitsData.day_potential.filter(
+            (potential) => potential.date === day.format('YYYY-MM-DD')
+        )
+
+    const foundDayPotential = dayPotentialFinder(day, habitsData)
+    console.log('foundDayPotential', ...foundDayPotential)
+
+    const dayPotential =
+        foundDayPotential[0] !== undefined ? foundDayPotential[0].status : null
+
     return (
         <tr className="status-cell" key={day.toString()}>
             <th scope="row">{day.format('DD.MM')}</th>
             {habitsData.habits.map((habit) => (
                 <td key={habit.id}>
-                    <HabitStatus
-                        // onClickCell={oneClickCellHandler}
-                        // onDoubleClickCell={doubleClickCellHandler}
-                        habit={habit}
-                        date={day}
-                    />
+                    <HabitStatus habit={habit} date={day} />
                 </td>
             ))}
             <th>
                 <input
                     type="number"
                     className="day-potential-input"
-                    // value={inputDayPotentialState[dayOrderNumber]}
-                    // onChange={(e) =>
-                    //     inputDayPotentialHandler(e, dayOrderNumber)
-                    // }
+                    value={dayPotential}
                 />
             </th>
         </tr>

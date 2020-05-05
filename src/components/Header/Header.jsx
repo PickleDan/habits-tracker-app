@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Styles from './Header.module.scss'
 import { Container } from 'react-bootstrap'
 import cn from 'classnames'
-import { fetchGetHabitsApi, fetchGetProfileData } from '../../api'
+import { fetchGetProfileData } from '../../api'
 import { getGreetingTime } from '../../utils/getGreetingTime'
 import moment from 'moment'
 

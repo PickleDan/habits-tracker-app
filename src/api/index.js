@@ -52,7 +52,6 @@ export const fetchGetHabitsApi = async ({
     perPage = 10,
     token,
 }) => {
-    console.log('TOKEN CHECK', token, dateFrom)
     return await fetch(
         `${url}/main?date_from=${dateFrom}&date_to=${dateTo}&page=${page}&per_page=${perPage}`,
         {
@@ -62,4 +61,24 @@ export const fetchGetHabitsApi = async ({
             },
         }
     )
+}
+
+export const fetchUpdateHabitStatApi = async ({
+    date,
+    status,
+    habitId,
+    token,
+}) => {
+    console.log('DATE', date)
+    return await fetch(`${url}/habits/${habitId}/stat`, {
+        method: 'POST',
+        body: JSON.stringify({
+            date: date,
+            status: status,
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
 }
