@@ -8,12 +8,6 @@ import {
     fetchHabits,
     fetchUpdateHabitStat,
 } from '../../../../redux/habits/habitsRequests'
-import { DateUtils } from '../../../../utils/date'
-import moment from 'moment'
-
-const weekDays = DateUtils.getWeekDays(moment())
-const dateFrom = weekDays[0].format('YYYY-MM-DD')
-const dateTo = weekDays[6].format('YYYY-MM-DD')
 
 const habitStatusComponents = {
     1: GreenMark,
@@ -43,7 +37,7 @@ const HabitStatus = ({ habit, date, fetchUpdateHabitStat, fetchHabits }) => {
         const status = 1
 
         await fetchUpdateHabitStat({ date: clickDate, status, habitId })
-        await fetchHabits({ dateFrom, dateTo })
+        await fetchHabits()
     }
 
     const onDoubleClickOnCell = async (habit, date) => {
@@ -52,7 +46,7 @@ const HabitStatus = ({ habit, date, fetchUpdateHabitStat, fetchHabits }) => {
         const status = 2
 
         await fetchUpdateHabitStat({ date: clickDate, status, habitId })
-        await fetchHabits({ dateFrom, dateTo })
+        await fetchHabits()
     }
 
     const onContextMenuClickOnCell = async (habit, date, e) => {
@@ -62,7 +56,7 @@ const HabitStatus = ({ habit, date, fetchUpdateHabitStat, fetchHabits }) => {
 
         e.preventDefault()
         await fetchUpdateHabitStat({ date: clickDate, status, habitId })
-        await fetchHabits({ dateFrom, dateTo })
+        await fetchHabits()
     }
 
     const onLongClickOnCell = async (habit, date) => {
@@ -72,7 +66,7 @@ const HabitStatus = ({ habit, date, fetchUpdateHabitStat, fetchHabits }) => {
             const status = 3
 
             await fetchUpdateHabitStat({ date: clickDate, status, habitId })
-            await fetchHabits({ dateFrom, dateTo })
+            await fetchHabits()
         }, 700)
     }
 

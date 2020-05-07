@@ -3,11 +3,13 @@ import thunkMiddleware from 'redux-thunk'
 import { authReducer } from './auth/authReducer'
 import { signUpReducer } from './signUp/signUpReducer'
 import { habitsReducer } from './habits/habitsReducer'
+import { addHabitReducer } from './addHabit/addHabitReducer'
 
 let reducers = combineReducers({
     auth: authReducer,
     signUp: signUpReducer,
     habitsData: habitsReducer,
+    addHabit: addHabitReducer,
 })
 
 const composeEnhancers =

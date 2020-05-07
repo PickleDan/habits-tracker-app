@@ -8,10 +8,9 @@ const StatRow = ({ day, habitsData }) => {
         )
 
     const foundDayPotential = dayPotentialFinder(day, habitsData)
-    console.log('foundDayPotential', ...foundDayPotential)
 
     const dayPotential =
-        foundDayPotential[0] !== undefined ? foundDayPotential[0].status : null
+        foundDayPotential[0] !== undefined ? foundDayPotential[0].status : ''
 
     return (
         <tr className="status-cell" key={day.toString()}>
@@ -26,6 +25,7 @@ const StatRow = ({ day, habitsData }) => {
                     type="number"
                     className="day-potential-input"
                     value={dayPotential}
+                    onChange={() => {}}
                 />
             </th>
         </tr>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Styles from './Header.module.scss'
 import { Container } from 'react-bootstrap'
 import cn from 'classnames'
-import { fetchGetProfileData } from '../../api'
+import { fetchGetProfileDataApi } from '../../api'
 import { getGreetingTime } from '../../utils/getGreetingTime'
 import moment from 'moment'
 
@@ -14,7 +14,7 @@ export const Header = ({ setAuthToken, setLoggedIn, token }) => {
         setLoggedIn(false)
     }
     const getUserName = async (token) => {
-        const response = await fetchGetProfileData(token)
+        const response = await fetchGetProfileDataApi(token)
         const responseJSON = await response.json()
         setName(responseJSON.name)
     }

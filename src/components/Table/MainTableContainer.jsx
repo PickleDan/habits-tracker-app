@@ -3,34 +3,77 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { MainTable } from './MainTable'
 import { fetchHabits } from '../../redux/habits/habitsRequests'
+import { fetchCreateHabit } from '../../redux/addHabit/addHabitRequests'
+import {
+    setHabitMeasureInput,
+    setHabitNameInput,
+    setModalToAddHabit,
+    setNewHabitError,
+    setNewHabitSuccess,
+} from '../../redux/addHabit/addHabitActions'
 
 const MainTableContainer = ({
-    habits,
     weekDays,
-    token,
     habitsData,
     fetchHabits,
+    fetchCreateHabit,
+    modalToAddHabitIsOpen,
+    setModalToAddHabit,
+    habitNameInEditing,
+    habitMeasureInEditing,
+    setHabitNameInput,
+    setHabitMeasureInput,
+    isSuccessAdded,
+    isErrorAdded,
+    setNewHabitSuccess,
+    setNewHabitError,
 }) => {
     useEffect(() => {
-        const test = fetchHabits({
-            dateFrom: weekDays[0].format('YYYY-MM-DD'),
-            dateTo: weekDays[6].format('YYYY-MM-DD'),
-            page: 1,
-            perPage: 20,
-            token: token,
-        })
+        fetchHabits()
     }, [])
 
-    return <MainTable {...{ habits, weekDays, habitsData }} />
+    return (
+        <MainTable
+            {...{
+                weekDays,
+                habitsData,
+                modalToAddHabitIsOpen,
+                setModalToAddHabit,
+                habitNameInEditing,
+                habitMeasureInEditing,
+                setHabitNameInput,
+                setHabitMeasureInput,
+                fetchCreateHabit,
+                fetchHabits,
+                isSuccessAdded,
+                isErrorAdded,
+                setNewHabitSuccess,
+                setNewHabitError,
+            }}
+        />
+    )
 }
 
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
         habitsData: state.habitsData,
+        modalToAddHabitIsOpen: state.addHabit.isOpen,
+        habitNameInEditing: state.addHabit.habitName,
+        habitMeasureInEditing: state.addHabit.habitMeasure,
+        isSuccessAdded: state.addHabit.isSuccess,
+        isErrorAdded: state.addHabit.isError,
     }
 }
 
-export default compose(connect(mapStateToProps, { fetchHabits }))(
-    MainTableContainer
-)
+export default compose(
+    connect(mapStateToProps, {
+        fetchHabits,
+        fetchCreateHabit,
+        setModalToAddHabit,
+        setHabitNameInput,
+        setHabitMeasureInput,
+        setNewHabitSuccess,
+        setNewHabitError,
+    })
+)(MainTableContainer)

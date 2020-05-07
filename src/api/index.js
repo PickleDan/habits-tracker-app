@@ -36,7 +36,7 @@ export const fetchSignUpApi = async ({
     })
 }
 
-export const fetchGetProfileData = async (token) => {
+export const fetchGetProfileDataApi = async (token) => {
     return await fetch(`${url}/profile`, {
         method: 'GET',
         headers: {
@@ -69,12 +69,25 @@ export const fetchUpdateHabitStatApi = async ({
     habitId,
     token,
 }) => {
-    console.log('DATE', date)
     return await fetch(`${url}/habits/${habitId}/stat`, {
         method: 'POST',
         body: JSON.stringify({
             date: date,
             status: status,
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
+export const fetchCreateHabitApi = async ({ name, description, token }) => {
+    console.log(name, description)
+    return await fetch(`${url}/habits`, {
+        method: 'POST',
+        body: JSON.stringify({
+            name,
+            description,
         }),
         headers: {
             'Content-Type': 'application/json',

@@ -13,7 +13,6 @@ export const habitsReducer = (state = initialState, action) => {
                 habits: action.payload.habits.habits,
                 day_potential: action.payload.habits.day_potential,
             }
-
         default:
             return state
     }

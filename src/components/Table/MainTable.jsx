@@ -1,26 +1,45 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { HabitName } from './HabitName/HabitName'
 import { HabitMeasure } from './HabitMeasure/HabitMeasure'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modal from 'react-modal'
 import { Container, Table } from 'react-bootstrap'
 import StatRowContainer from './StatRow/StatRowContainer'
+import HabitNameContainer from './HabitName/HabitNameContainer'
 
 moment.locale('ru')
 
-export const MainTable = ({ weekDays, habitsData }) => {
-    const [modalIsOpen, setModalIsOpen] = useState(false)
-
+export const MainTable = ({
+    weekDays,
+    habitsData,
+    modalToAddHabitIsOpen,
+    setModalToAddHabit,
+    habitNameInEditing,
+    habitMeasureInEditing,
+    setHabitNameInput,
+    setHabitMeasureInput,
+    fetchCreateHabit,
+    fetchHabits,
+    isSuccessAdded,
+    isErrorAdded,
+    setNewHabitSuccess,
+    setNewHabitError,
+}) => {
     const [deleteModalWarning, setDeleteModalWarning] = useState({
         isOpen: false,
         removableHabit: {},
     })
 
+    const onSubmitHabitSaving = async (name, description, e) => {
+        e.preventDefault()
+        await fetchCreateHabit({ name, description })
+        await fetchHabits()
+    }
+
     const listOfHabitsNames = habitsData.habits.map((habit) => {
-        return <HabitName key={habit.id} habit={habit} />
+        return <HabitNameContainer key={habit.id} habit={habit} />
     })
 
     const listOfMeasureValue = habitsData.habits.map((habit) => (
@@ -71,29 +90,70 @@ export const MainTable = ({ weekDays, habitsData }) => {
             </Modal>
 
             <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
+                isOpen={modalToAddHabitIsOpen}
+                onRequestClose={() => setModalToAddHabit(false)}
                 style={customModalStyles}
             >
                 <h2 className="modal-title">Введите данные о привычке</h2>
-                <form>
+                {isErrorAdded ? (
+                    <h6 className="modal-habit-error">
+                        Ошибка при добавлении новой привычки.
+                    </h6>
+                ) : null}
+                {isSuccessAdded ? (
+                    <h6 className="modal-habit-added">
+                        Вы успешно добавили новую привычку!
+                    </h6>
+                ) : null}
+                <form
+                    onSubmit={(e) =>
+                        onSubmitHabitSaving(
+                            habitNameInEditing,
+                            habitMeasureInEditing,
+                            e
+                        )
+                    }
+                >
                     <div className="modal-inputs">
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">
                                 Введите название привычки:
                             </span>
-                            <input minLength="3" />
+                            <input
+                                minLength="3"
+                                value={habitNameInEditing}
+                                onChange={(e) => {
+                                    setHabitNameInput(e.target.value)
+                                    setNewHabitSuccess(false)
+                                    setNewHabitError(false)
+                                }}
+                            />
                         </div>
 
                         <div className="modal-inputs-item">
                             <span className="inputSignUp">
                                 Введите норму привычки:
                             </span>
-                            <input minLength="3" />
+                            <input
+                                minLength="3"
+                                value={habitMeasureInEditing}
+                                onChange={(e) => {
+                                    setHabitMeasureInput(e.target.value)
+                                    setNewHabitSuccess(false)
+                                    setNewHabitError(false)
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="modal-buttons">
-                        <button>Отменить</button>
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault()
+                                setModalToAddHabit(false)
+                            }}
+                        >
+                            Отменить
+                        </button>
                         <button>Сохранить</button>
                     </div>
                 </form>
@@ -102,6 +162,7 @@ export const MainTable = ({ weekDays, habitsData }) => {
                 size="2x"
                 icon={faPlusCircle}
                 className="plusIcon"
+                onClick={() => setModalToAddHabit(true)}
             />
             <Table striped bordered responsive>
                 <thead>
@@ -120,11 +181,8 @@ export const MainTable = ({ weekDays, habitsData }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {weekDays.map((day, dayOrderNumber) => (
-                        <StatRowContainer
-                            day={day}
-                            dayOrderNumber={dayOrderNumber}
-                        />
+                    {weekDays.map((day, index) => (
+                        <StatRowContainer key={index} day={day} />
                     ))}
                 </tbody>
             </Table>

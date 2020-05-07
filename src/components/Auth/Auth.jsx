@@ -42,15 +42,12 @@ export const Auth = ({
 
     const onSubmitAuth = (e) => {
         e.preventDefault()
-        console.log('REQUEST')
         fetchAuth()
     }
 
     const onSubmitSignUp = (e) => {
         e.preventDefault()
-        console.log('REGISTRY')
         fetchSignUp()
-        //todo
     }
 
     const [modalIsOpen, setModalIsOpen] = useState(false)
