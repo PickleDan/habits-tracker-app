@@ -25,18 +25,16 @@ export const MainTable = ({
     isSuccessAdded,
     isErrorAdded,
     setNewHabitSuccess,
+    isSuccessDeleting,
     setNewHabitError,
 }) => {
-    const [deleteModalWarning, setDeleteModalWarning] = useState({
-        isOpen: false,
-        removableHabit: {},
-    })
-
     const onSubmitHabitSaving = async (name, description, e) => {
         e.preventDefault()
         await fetchCreateHabit({ name, description })
         await fetchHabits()
     }
+
+    console.log('isSuccessDeleting', isSuccessDeleting)
 
     const listOfHabitsNames = habitsData.habits.map((habit) => {
         return <HabitNameContainer key={habit.id} habit={habit} />
@@ -63,32 +61,6 @@ export const MainTable = ({
 
     return (
         <Container fluid className="table-wrapper">
-            <Modal
-                isOpen={deleteModalWarning.isOpen}
-                onRequestClose={() =>
-                    setDeleteModalWarning({
-                        ...deleteModalWarning,
-                        isOpen: false,
-                    })
-                }
-                style={customModalStyles}
-            >
-                <p className="modal-alert">Вы точно хотите удалить привычку?</p>
-                <div className="modal-buttons">
-                    <button
-                        onClick={() =>
-                            setDeleteModalWarning({
-                                ...deleteModalWarning,
-                                isOpen: false,
-                            })
-                        }
-                    >
-                        Отменить
-                    </button>
-                    <button>Удалить</button>
-                </div>
-            </Modal>
-
             <Modal
                 isOpen={modalToAddHabitIsOpen}
                 onRequestClose={() => setModalToAddHabit(false)}
@@ -164,6 +136,11 @@ export const MainTable = ({
                 className="plusIcon"
                 onClick={() => setModalToAddHabit(true)}
             />
+            {isSuccessDeleting ? (
+                <h6 className="habit-is-deleted">
+                    Вы успешно удалили привычку
+                </h6>
+            ) : null}
             <Table striped bordered responsive>
                 <thead>
                     <tr>

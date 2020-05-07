@@ -4,12 +4,14 @@ import { authReducer } from './auth/authReducer'
 import { signUpReducer } from './signUp/signUpReducer'
 import { habitsReducer } from './habits/habitsReducer'
 import { addHabitReducer } from './addHabit/addHabitReducer'
+import { deleteHabitReduce } from './deleteHabit/deleteHabitReducer'
 
 let reducers = combineReducers({
     auth: authReducer,
     signUp: signUpReducer,
     habitsData: habitsReducer,
     addHabit: addHabitReducer,
+    deleteHabit: deleteHabitReduce,
 })
 
 const composeEnhancers =

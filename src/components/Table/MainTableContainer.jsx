@@ -11,6 +11,7 @@ import {
     setNewHabitError,
     setNewHabitSuccess,
 } from '../../redux/addHabit/addHabitActions'
+import { setSuccessDeleting } from '../../redux/deleteHabit/deleteHabitActions'
 
 const MainTableContainer = ({
     weekDays,
@@ -24,14 +25,21 @@ const MainTableContainer = ({
     setHabitNameInput,
     setHabitMeasureInput,
     isSuccessAdded,
+    isSuccessDeleting,
     isErrorAdded,
     setNewHabitSuccess,
     setNewHabitError,
+    setSuccessDeleting,
 }) => {
     useEffect(() => {
         fetchHabits()
     }, [])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setSuccessDeleting(false)
+        }, 2000)
+    }, [isSuccessDeleting])
     return (
         <MainTable
             {...{
@@ -46,6 +54,7 @@ const MainTableContainer = ({
                 fetchCreateHabit,
                 fetchHabits,
                 isSuccessAdded,
+                isSuccessDeleting,
                 isErrorAdded,
                 setNewHabitSuccess,
                 setNewHabitError,
@@ -62,6 +71,7 @@ const mapStateToProps = (state) => {
         habitNameInEditing: state.addHabit.habitName,
         habitMeasureInEditing: state.addHabit.habitMeasure,
         isSuccessAdded: state.addHabit.isSuccess,
+        isSuccessDeleting: state.deleteHabit.isSuccess,
         isErrorAdded: state.addHabit.isError,
     }
 }
@@ -75,5 +85,6 @@ export default compose(
         setHabitMeasureInput,
         setNewHabitSuccess,
         setNewHabitError,
+        setSuccessDeleting,
     })
 )(MainTableContainer)

@@ -81,14 +81,24 @@ export const fetchUpdateHabitStatApi = async ({
         },
     })
 }
+
 export const fetchCreateHabitApi = async ({ name, description, token }) => {
-    console.log(name, description)
     return await fetch(`${url}/habits`, {
         method: 'POST',
         body: JSON.stringify({
             name,
             description,
         }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
+
+export const fetchDeleteHabitApi = async ({ id, token }) => {
+    return await fetch(`${url}/habits/${id}`, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
