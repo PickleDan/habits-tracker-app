@@ -5,12 +5,24 @@ import { Main } from '../Main'
 import PrivateRoute from './PrivateRoute'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import StatisticsContainer from '../Statistics/StatisticsContainer'
 
-const Routes = ({ isLoggedIn, token }) => {
+const Routes = ({ isLoggedIn }) => {
     return (
         <BrowserRouter>
-            <Route path="/login" component={AuthContainer} />
-            <PrivateRoute restricted={isLoggedIn} component={Main} path="/" />
+            <Switch>
+                <Route path="/login" component={AuthContainer} />
+                <PrivateRoute
+                    restricted={isLoggedIn}
+                    component={StatisticsContainer}
+                    path="/statistics"
+                />
+                <PrivateRoute
+                    restricted={isLoggedIn}
+                    component={Main}
+                    path="/"
+                />
+            </Switch>
         </BrowserRouter>
     )
 }

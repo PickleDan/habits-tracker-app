@@ -1,0 +1,79 @@
+.container {
+    max-width: 1512px;
+    margin: auto;
+    padding: 0 96px;
+    .grid {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+    }
+    .sidebar {
+        border-right: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        border-left: 1px solid #fff;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        .title {
+            padding-top: 30px;
+            padding-bottom: 20px;
+            color: #fff;
+            font-family: Roboto, sans-serif;
+            font-size: 22px;
+        }
+        .timePeriod {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            input {
+                width: 100%;
+                border-radius: 50px;
+                margin: 10px;
+                color: #555;
+                padding: 2px;
+            }
+            button {
+                width: 100%;
+                border-radius: 50px;
+                margin: 30px 0;
+                padding: 5px;
+                transition: 0.3s;
+                color: #333;
+                &:hover {
+                    color: #fff;
+                    background-color: #e66465;
+                }
+            }
+        }
+    }
+    .statsView {
+        padding: 30px 60px;
+        border-bottom: 1px solid #fff;
+        border-right: 1px solid #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title {
+            padding-top: 30px;
+            padding-bottom: 20px;
+            color: #fff;
+            font-family: Roboto, sans-serif;
+            font-size: 22px;
+            width: 430px;
+            text-align: left;
+        }
+        .indicators {
+            padding-top: 10px;
+            font-size: 20px;
+            span {
+                color: #fff;
+            }
+        }
+    }
+    table {
+        border: 1px solid #fff;
+        border-collapse: collapse;
+    }
+}

@@ -5,6 +5,8 @@ import cn from 'classnames'
 import { fetchGetProfileDataApi } from '../../api'
 import { getGreetingTime } from '../../utils/getGreetingTime'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
+import MenuLink from './MenuLink/MenuLink'
 
 export const Header = ({ setAuthToken, setLoggedIn, token }) => {
     const [name, setName] = useState('')
@@ -28,11 +30,13 @@ export const Header = ({ setAuthToken, setLoggedIn, token }) => {
             <Container fluid className={Styles.container}>
                 <div className={Styles.menuWrapper}>
                     <div className={Styles.menuNav}>
-                        <div className={cn(Styles.menuItem, Styles.active)}>
-                            Мои привычки
-                        </div>
-                        <div className={Styles.menuItem}>Статистика</div>
-                        <div className={Styles.menuItem}>Интересные статьи</div>
+                        <MenuLink
+                            label="Мои привычки"
+                            to="/"
+                            activeOnlyWhenExact={true}
+                        />
+                        <MenuLink label="Статистика" to="/statistics" />
+                        <MenuLink label="Интересные статьи" to="#" />
                     </div>
                     <div className={Styles.greeting}>
                         Привет, <b>{name}!</b> <br /> {greeting}

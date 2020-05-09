@@ -42,7 +42,6 @@ const HabitName = ({
         fetchUpdateHabit({
             id: habit.id,
             name: habit.name,
-            description: habit.description,
         })
     }
 
@@ -50,7 +49,6 @@ const HabitName = ({
         fetchUpdateHabit({
             id: habit.id,
             name: habit.name,
-            description: habit.description,
         })
     }
 

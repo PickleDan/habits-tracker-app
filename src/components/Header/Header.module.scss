@@ -40,6 +40,13 @@
     &:hover {
         color: #fff;
     }
+    .menuItemLink {
+        color: #fff;
+        transition: 0.5s;
+        &:hover {
+            color: #ccc;
+        }
+    }
 }
 .authBlock {
     height: 100%;

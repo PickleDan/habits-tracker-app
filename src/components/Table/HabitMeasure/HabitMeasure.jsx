@@ -25,7 +25,6 @@ const HabitMeasure = ({ habit, habitsData, setHabits, fetchUpdateHabit }) => {
     const handleAcceptIcon = () => {
         fetchUpdateHabit({
             id: habit.id,
-            name: habit.name,
             description: habit.description,
         })
     }
@@ -33,7 +32,6 @@ const HabitMeasure = ({ habit, habitsData, setHabits, fetchUpdateHabit }) => {
     const handleBlur = () => {
         fetchUpdateHabit({
             id: habit.id,
-            name: habit.name,
             description: habit.description,
         })
     }
