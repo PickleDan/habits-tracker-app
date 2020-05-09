@@ -105,3 +105,18 @@ export const fetchDeleteHabitApi = async ({ id, token }) => {
         },
     })
 }
+
+export const fetchUpdateHabitApi = async ({ id, name, description, token }) => {
+    console.log('INFO', id, name, description)
+    return await fetch(`${url}/habits/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            name,
+            description,
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}

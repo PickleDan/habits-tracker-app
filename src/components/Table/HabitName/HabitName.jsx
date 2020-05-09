@@ -5,6 +5,7 @@ import HabitNameStyles from './HabitName.module.scss'
 import { ClickAwayListener } from '@material-ui/core'
 import cn from 'classnames'
 import Modal from 'react-modal'
+import cloneObject from '../../../utils/cloneObject'
 
 const HabitName = ({
     habit,
@@ -12,6 +13,9 @@ const HabitName = ({
     setModalToDeleteHabit,
     fetchDeleteHabit,
     fetchHabits,
+    setHabits,
+    habitsData,
+    fetchUpdateHabit,
 }) => {
     const onClickAway = () => {
         setEditingMode(false)
@@ -24,20 +28,56 @@ const HabitName = ({
         setModalToDeleteHabit(false)
     }
 
-    const [inputState, setInputState] = useState(habit.name)
+    const onHabitNameChange = (e) => {
+        const clonedHabitsData = cloneObject(habitsData)
+        clonedHabitsData.habits.forEach((habitFromState) => {
+            if (habitFromState.id === habit.id) {
+                habitFromState.name = e.target.value
+                setHabits(clonedHabitsData)
+            }
+        })
+    }
+
+    const handleAcceptIcon = () => {
+        fetchUpdateHabit({
+            id: habit.id,
+            name: habit.name,
+            description: habit.description,
+        })
+    }
+
+    const handleBlur = () => {
+        fetchUpdateHabit({
+            id: habit.id,
+            name: habit.name,
+            description: habit.description,
+        })
+    }
+
+    const handleDenyIcon = () => {
+        const clonedHabitsData = cloneObject(habitsData)
+        clonedHabitsData.habits.forEach((habitFromState) => {
+            if (habitFromState.id === habit.id) {
+                habitFromState.name = ''
+                setHabits(clonedHabitsData)
+            }
+        })
+    }
+
     const [editingMode, setEditingMode] = useState(false)
     const icons = (
         <>
             <FontAwesomeIcon
                 className={HabitNameStyles.habitNameIconCheck}
                 icon={faCheck}
-                // onClick={(e) =>
-                //     handleAcceptIcon({ name: inputState, id: habit.id })
-                // }
+                onClick={handleAcceptIcon}
+                size="2x"
             />
             <FontAwesomeIcon
                 className={HabitNameStyles.habitNameIconDeny}
                 icon={faTimes}
+                onClick={handleDenyIcon}
+                size="2x"
             />
         </>
     )
@@ -95,8 +135,9 @@ const HabitName = ({
                         {editingMode && deleteHabit}
                         <input
                             className="habit-name-input"
-                            value={inputState}
-                            onChange={(e) => setInputState(e.target.value)}
+                            value={habit.name}
+                            onBlur={handleBlur}
+                            onChange={(e) => onHabitNameChange(e)}
                         />
 
                         <div className={cn(HabitNameStyles.habitNameButtons)}>

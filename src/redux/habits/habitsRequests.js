@@ -1,5 +1,9 @@
-import { fetchGetHabitsApi, fetchUpdateHabitStatApi } from '../../api'
-import { setHabits } from './habitsActions'
+import {
+    fetchGetHabitsApi,
+    fetchUpdateHabitApi,
+    fetchUpdateHabitStatApi,
+} from '../../api'
+import { setHabits, setUpdateSuccess } from './habitsActions'
 import { DateUtils } from '../../utils/date'
 import moment from 'moment'
 
@@ -29,7 +33,7 @@ export const fetchHabits = (
             console.log(`SUCCESS! YOU'VE GOTTEN HABITS INFO: `, resultJSON)
             dispatch(setHabits(resultJSON))
         } catch (e) {
-            //todo
+            console.error(e)
         }
     }
 }
@@ -47,7 +51,27 @@ export const fetchUpdateHabitStat = ({ date, status, habitId }) => {
             const resultJSON = await result.json()
             console.log(`'SUCCESS! YOU'VE UPDATED HABIT STATUS: `, resultJSON)
         } catch (e) {
-            alert('что-то пошло не так')
+            console.error(e)
+        }
+    }
+}
+
+export const fetchUpdateHabit = ({ id, name, description }) => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token
+
+        try {
+            const result = await fetchUpdateHabitApi({
+                id,
+                name,
+                description,
+                token,
+            })
+            const resultJSON = await result.json()
+            console.log(`'SUCCESS! YOU'VE UPDATED HABIT NAME: `, resultJSON)
+            dispatch(setUpdateSuccess(true))
+        } catch (e) {
+            console.error(e)
         }
     }
 }

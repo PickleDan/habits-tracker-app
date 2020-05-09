@@ -8,3 +8,12 @@ export const setHabits = (habits) => {
         },
     }
 }
+
+export const setUpdateSuccess = (isUpdateSuccess) => {
+    return {
+        type: reduxTypes.SET_UPDATE_SUCCESS,
+        payload: {
+            isUpdateSuccess,
+        },
+    }
+}

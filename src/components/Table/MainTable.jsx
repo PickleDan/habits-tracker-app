@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { HabitMeasure } from './HabitMeasure/HabitMeasure'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modal from 'react-modal'
 import { Container, Table } from 'react-bootstrap'
 import StatRowContainer from './StatRow/StatRowContainer'
 import HabitNameContainer from './HabitName/HabitNameContainer'
+import HabitMeasureContainer from './HabitMeasure/HabitMeasureContainer'
 
 moment.locale('ru')
 
@@ -27,6 +27,7 @@ export const MainTable = ({
     setNewHabitSuccess,
     isSuccessDeleting,
     setNewHabitError,
+    isUpdateSuccess,
 }) => {
     const onSubmitHabitSaving = async (name, description, e) => {
         e.preventDefault()
@@ -34,14 +35,12 @@ export const MainTable = ({
         await fetchHabits()
     }
 
-    console.log('isSuccessDeleting', isSuccessDeleting)
-
     const listOfHabitsNames = habitsData.habits.map((habit) => {
         return <HabitNameContainer key={habit.id} habit={habit} />
     })
 
     const listOfMeasureValue = habitsData.habits.map((habit) => (
-        <HabitMeasure key={habit.id} habit={habit} />
+        <HabitMeasureContainer key={habit.id} habit={habit} />
     ))
 
     const customModalStyles = {
@@ -126,7 +125,7 @@ export const MainTable = ({
                         >
                             Отменить
                         </button>
-                        <button>Сохранить</button>
+                        <button type="submit">Сохранить</button>
                     </div>
                 </form>
             </Modal>
@@ -138,7 +137,12 @@ export const MainTable = ({
             />
             {isSuccessDeleting ? (
                 <h6 className="habit-is-deleted">
-                    Вы успешно удалили привычку
+                    Вы успешно удалили привычку!
+                </h6>
+            ) : null}
+            {isUpdateSuccess ? (
+                <h6 className="habit-is-deleted">
+                    Вы успешно изменили привычку!
                 </h6>
             ) : null}
             <Table striped bordered responsive>

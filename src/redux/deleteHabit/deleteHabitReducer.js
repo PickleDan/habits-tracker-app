@@ -5,7 +5,7 @@ const initialState = {
     isSuccess: false,
 }
 
-export const deleteHabitReduce = (state = initialState, action) => {
+export const deleteHabitReducer = (state = initialState, action) => {
     switch (action.type) {
         case reduxTypes.SET_DELETE_HABIT_MODAL:
             return {

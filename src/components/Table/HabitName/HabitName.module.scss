@@ -7,18 +7,28 @@
 .habitNameButtons {
     position: absolute;
     right: -5px;
-    bottom: -6px;
+    bottom: -16px;
     cursor: pointer;
     display: flex !important;
     flex-direction: column;
     justify-content: space-around;
 }
 .habitNameIconDeny {
+    width: 15px !important;
     color: $red-mark-color;
-    margin: 5px 0;
+    margin: 2px 0;
+    transition: 0.2s;
+    &:hover {
+        color: red;
+    }
 }
 .habitNameIconCheck {
+    width: 20px !important;
     color: $green-mark-color;
+    transition: 0.2s;
+    &:hover {
+        color: green;
+    }
 }
 .deleteHabit {
     position: absolute;
