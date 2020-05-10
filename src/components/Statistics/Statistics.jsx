@@ -2,16 +2,88 @@ import React, { useState } from 'react'
 import HeaderContainer from '../Header/HeaderContainer'
 import Style from './Statistics.module.scss'
 import Container from 'react-bootstrap/Container'
+import { DAYS } from '../../utils/getDatePeriod'
+import moment from 'moment'
 
 const Statistics = ({ fetchHabits, habitsData }) => {
+    console.log('habitsData', habitsData)
+
+    const filteredStats = habitsData.habits.map((habit) => {
+        return {
+            id: habit.id,
+            stats: habit.stats.filter((stat) => stat.status !== 0),
+        }
+    })
+
+    const forPercentageCalculate = filteredStats.map((el) => {
+        return {
+            id: el.id,
+            all: el.stats.length,
+            good: el.stats.filter(
+                (item) => item.status === 1 || item.status === 3
+            ).length,
+        }
+    })
+
+    const percentages = forPercentageCalculate.map((el) => {
+        return {
+            percentages: Math.floor((el.good / el.all) * 100),
+            id: el.id,
+        }
+    })
+
+    const sortedPercentages = percentages.sort(
+        (a, b) => b.percentages - a.percentages
+    )
+
+    console.log('filteredStats', sortedPercentages)
+
+    const theBestHabit = habitsData.habits.find(
+        (habit) => habit.id === sortedPercentages[0].id
+    )
+
+    const theLostHabit = habitsData.habits.find(
+        (habit) =>
+            habit.id === sortedPercentages[sortedPercentages.length - 1].id
+    )
+    const theBestHabitPercentage = sortedPercentages.length
+        ? sortedPercentages[0].percentages
+        : null
+
+    const theLostHabitPercentage = sortedPercentages.length
+        ? sortedPercentages[sortedPercentages.length - 1].percentages
+        : null
+
     const [datePeriod, setDatePeriod] = useState({
         dateFrom: '',
         dateTo: '',
     })
+    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD')
+    const endOfMonth = moment().endOf('month').format('YYYY-MM-DD')
+
+    let days = DAYS(datePeriod.dateFrom, datePeriod.dateTo)
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetchHabits(datePeriod.dateFrom, datePeriod.dateTo)
+        if (days.length > 100) {
+            alert(
+                'Вы ввели слишком большой премежуток времени, максимальный период 3 месяца'
+            )
+        } else {
+            fetchHabits(datePeriod.dateFrom, datePeriod.dateTo)
+        }
     }
+
+    const showPerMonth = (e) => {
+        e.preventDefault()
+        setDatePeriod({
+            dateFrom: startOfMonth,
+            dateTo: endOfMonth,
+        })
+        console.log('test', startOfMonth, endOfMonth)
+        fetchHabits(startOfMonth, endOfMonth)
+    }
+
     return (
         <>
             <HeaderContainer />
@@ -42,6 +114,12 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                                     type="date"
                                 />
                                 <button>Показать</button>
+                                <button
+                                    onClick={showPerMonth}
+                                    className={Style.showForMonth}
+                                >
+                                    Показать за месяц
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -51,13 +129,25 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                             <p className={Style.indicatorsItem}>
                                 Самая сильная привычка:{' '}
                                 <span className={Style.theBest}>
-                                    Чтение книг <b>90%</b>
+                                    {theBestHabit && theBestHabit.name}{' '}
+                                    <b>
+                                        {isNaN(theBestHabitPercentage)
+                                            ? 0
+                                            : theBestHabitPercentage}
+                                        %
+                                    </b>
                                 </span>
                             </p>
                             <p className={Style.indicatorsItem}>
                                 Самая слабая привычка:{' '}
                                 <span className={Style.theLost}>
-                                    Ранний подъем <b>30%</b>
+                                    {theLostHabit && theLostHabit.name}{' '}
+                                    <b>
+                                        {isNaN(theLostHabitPercentage)
+                                            ? 0
+                                            : theLostHabitPercentage}
+                                        %
+                                    </b>
                                 </span>
                             </p>
                             <p className={Style.indicatorsItem}>
@@ -69,42 +159,65 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                         </div>
                     </div>
                 </div>
-                <table className="table table-striped table-sm table-dark">
+
+                <table className="table table-dark table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th>Привычка</th>
+                            {habitsData.habits.map((habit) => {
+                                return <th key={habit.id}>{habit.name}</th>
+                            })}
                         </tr>
                     </thead>
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th>Норма</th>
+                            {habitsData.habits.map((habit) => {
+                                return (
+                                    <th key={habit.id}>{habit.description}</th>
+                                )
+                            })}
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        {days.map((day, index) => {
+                            return (
+                                <tr key={index}>
+                                    <th scope="row">{day.format('DD.MM')}</th>
+                                    {habitsData.habits.map((habit) => (
+                                        <td key={habit.id}>
+                                            {habit.stats.map((stat) =>
+                                                stat.date ===
+                                                day.format('YYYY-MM-DD') ? (
+                                                    stat.status === 1 ? (
+                                                        <div
+                                                            key={stat.id}
+                                                            className={
+                                                                Style.greenTd
+                                                            }
+                                                        />
+                                                    ) : stat.status === 2 ? (
+                                                        <div
+                                                            key={stat.id}
+                                                            className={
+                                                                Style.redTd
+                                                            }
+                                                        />
+                                                    ) : stat.status === 3 ? (
+                                                        <div
+                                                            key={stat.id}
+                                                            className={
+                                                                Style.grayTd
+                                                            }
+                                                        />
+                                                    ) : null
+                                                ) : null
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </Container>
