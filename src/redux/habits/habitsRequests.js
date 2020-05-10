@@ -1,5 +1,6 @@
 import {
     fetchGetHabitsApi,
+    fetchUpdateDayPotentialApi,
     fetchUpdateHabitApi,
     fetchUpdateHabitStatApi,
 } from '../../api'
@@ -70,6 +71,24 @@ export const fetchUpdateHabit = ({ id, name, description }) => {
             const resultJSON = await result.json()
             console.log(`'SUCCESS! YOU'VE UPDATED HABIT NAME: `, resultJSON)
             dispatch(setUpdateSuccess(true))
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}
+
+export const fetchUpdateDayPotential = ({ date, status }) => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token
+
+        try {
+            const result = await fetchUpdateDayPotentialApi({
+                date,
+                status,
+                token,
+            })
+            const resultJSON = await result.json()
+            console.log(`'SUCCESS! YOU'VE UPDATED DAY POTENTIAL: `, resultJSON)
         } catch (e) {
             console.error(e)
         }

@@ -149,9 +149,7 @@ export const MainTable = ({
                 <thead>
                     <tr>
                         <th className="thStyle">Навык</th>
-
                         {listOfHabitsNames}
-
                         <th className="thStyle">Потенциал дня</th>
                     </tr>
 

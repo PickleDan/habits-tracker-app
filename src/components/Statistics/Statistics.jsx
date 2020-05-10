@@ -8,6 +8,19 @@ import moment from 'moment'
 const Statistics = ({ fetchHabits, habitsData }) => {
     console.log('habitsData', habitsData)
 
+    let dayPotentialSum
+
+    if (habitsData.day_potential.length) {
+        dayPotentialSum = habitsData.day_potential.reduce(
+            (acc, potential) => acc + parseInt(potential.status),
+            0
+        )
+    }
+
+    const dayPotentialAverage =
+        dayPotentialSum / habitsData.day_potential.length
+
+    console.log('dayPotentialAverage', dayPotentialAverage)
     const filteredStats = habitsData.habits.map((habit) => {
         return {
             id: habit.id,
@@ -35,8 +48,6 @@ const Statistics = ({ fetchHabits, habitsData }) => {
     const sortedPercentages = percentages.sort(
         (a, b) => b.percentages - a.percentages
     )
-
-    console.log('filteredStats', sortedPercentages)
 
     const theBestHabit = habitsData.habits.find(
         (habit) => habit.id === sortedPercentages[0].id
@@ -124,38 +135,46 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                         </form>
                     </div>
                     <div className={Style.statsView}>
-                        <h2 className={Style.title}>Статистика</h2>
-                        <div className={Style.indicators}>
-                            <p className={Style.indicatorsItem}>
-                                Самая сильная привычка:{' '}
-                                <span className={Style.theBest}>
-                                    {theBestHabit && theBestHabit.name}{' '}
-                                    <b>
-                                        {isNaN(theBestHabitPercentage)
-                                            ? 0
-                                            : theBestHabitPercentage}
-                                        %
-                                    </b>
-                                </span>
-                            </p>
-                            <p className={Style.indicatorsItem}>
-                                Самая слабая привычка:{' '}
-                                <span className={Style.theLost}>
-                                    {theLostHabit && theLostHabit.name}{' '}
-                                    <b>
-                                        {isNaN(theLostHabitPercentage)
-                                            ? 0
-                                            : theLostHabitPercentage}
-                                        %
-                                    </b>
-                                </span>
-                            </p>
-                            <p className={Style.indicatorsItem}>
-                                Потенциал{' '}
-                                <span className={Style.potential}>
-                                    <b>7.5</b>
-                                </span>
-                            </p>
+                        <div>
+                            <h2 className={Style.title}>Статистика</h2>
+                            <div className={Style.indicators}>
+                                <p className={Style.indicatorsItem}>
+                                    Самая сильная привычка:{' '}
+                                    <span className={Style.theBest}>
+                                        {theBestHabit && theBestHabit.name}{' '}
+                                        <b>
+                                            {isNaN(theBestHabitPercentage)
+                                                ? 0
+                                                : theBestHabitPercentage}
+                                            %
+                                        </b>
+                                    </span>
+                                </p>
+                                <p className={Style.indicatorsItem}>
+                                    Самая слабая привычка:{' '}
+                                    <span className={Style.theLost}>
+                                        {theLostHabit && theLostHabit.name}{' '}
+                                        <b>
+                                            {isNaN(theLostHabitPercentage)
+                                                ? 0
+                                                : theLostHabitPercentage}
+                                            %
+                                        </b>
+                                    </span>
+                                </p>
+                                <p className={Style.indicatorsItem}>
+                                    Потенциал:{' '}
+                                    <span className={Style.potential}>
+                                        <b>
+                                            {isNaN(dayPotentialAverage)
+                                                ? ''
+                                                : dayPotentialAverage.toFixed(
+                                                      1
+                                                  )}
+                                        </b>
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,6 +186,7 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                             {habitsData.habits.map((habit) => {
                                 return <th key={habit.id}>{habit.name}</th>
                             })}
+                            <th>Потенциал дня</th>
                         </tr>
                     </thead>
                     <thead>
@@ -177,6 +197,7 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                                     <th key={habit.id}>{habit.description}</th>
                                 )
                             })}
+                            <th>1...10</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -215,6 +236,23 @@ const Statistics = ({ fetchHabits, habitsData }) => {
                                             )}
                                         </td>
                                     ))}
+
+                                    {habitsData.day_potential.map(
+                                        (potential) => {
+                                            if (
+                                                potential.date ===
+                                                day.format('YYYY-MM-DD')
+                                            ) {
+                                                return (
+                                                    <td>
+                                                        {potential
+                                                            ? potential.status
+                                                            : ''}
+                                                    </td>
+                                                )
+                                            }
+                                        }
+                                    )}
                                 </tr>
                             )
                         })}

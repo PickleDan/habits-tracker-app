@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HabitStatus from './HabitsStatus/HabitStatus'
 
-const StatRow = ({ day, habitsData }) => {
-    const dayPotentialFinder = (day, habitsData) =>
-        habitsData.day_potential.filter(
-            (potential) => potential.date === day.format('YYYY-MM-DD')
-        )
+const StatRow = ({ day, habitsData, fetchUpdateDayPotential, fetchHabits }) => {
+    const [input, setInput] = useState(5)
 
-    const foundDayPotential = dayPotentialFinder(day, habitsData)
+    const inputInit = habitsData.day_potential.find((el) => {
+        if (el.date === day.format('YYYY-MM-DD')) return el.status
+    })
 
-    const dayPotential =
-        foundDayPotential[0] !== undefined ? foundDayPotential[0].status : ''
+    useEffect(() => {
+        setInput(inputInit && inputInit.status)
+    }, [habitsData])
+
+    const onBlurInput = async () => {
+        await fetchUpdateDayPotential({
+            date: day.format('YYYY-MM-DD'),
+            status: input,
+        })
+        await fetchHabits()
+    }
 
     return (
         <tr className="status-cell" key={day.toString()}>
@@ -24,8 +32,10 @@ const StatRow = ({ day, habitsData }) => {
                 <input
                     type="number"
                     className="day-potential-input"
-                    value={dayPotential}
-                    onChange={() => {}}
+                    value={input}
+                    maxLength={1}
+                    onChange={(e) => setInput(e.target.value)}
+                    onBlur={onBlurInput}
                 />
             </th>
         </tr>

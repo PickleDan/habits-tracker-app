@@ -11,7 +11,7 @@ const HabitMeasure = ({ habit, habitsData, setHabits, fetchUpdateHabit }) => {
     const onClickAway = () => {
         setEditingMode(false)
     }
-    console.log('habit', habit)
+
     const onHabitNameChange = (e) => {
         const clonedHabitsData = cloneObject(habitsData)
         clonedHabitsData.habits.forEach((habitFromState) => {
